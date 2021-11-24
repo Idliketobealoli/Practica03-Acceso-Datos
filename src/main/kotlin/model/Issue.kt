@@ -8,7 +8,7 @@ data class Issue(
         var title: String,
         var text: String,
         var date: Date,
-        var programmers_ids: List<String>,
+        var programmers_ids: String,
         var project_id: String,
         var repository_id: String,
         var isFinished: Boolean

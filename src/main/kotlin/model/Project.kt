@@ -10,8 +10,8 @@ data class Project(
         var budget: Double,
         var startDate: Date,
         var endDate: Date,
-        var technologies: List<String>,
+        var technologies: String,
         var repository_id: String,
         var isFinished: Boolean,
-        var programmers_ids: List<String>
+        var programmers_ids: String
 )
