@@ -1,7 +1,7 @@
 create table Department (
-    id character(32) not null,
+    id character(36) not null,
     name varchar(255) not null,
-    boss_id character(32) not null,
+    boss_id character(36) not null,
     budget decimal(10,2) not null,
     finishedProjects_ids text,
     development_project_ids text,
