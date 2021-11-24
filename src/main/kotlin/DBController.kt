@@ -8,6 +8,7 @@ import kotlin.jvm.Throws
 
 object DBController {
     /*
+    // Esto en caso de no usar SQLite:
     private var serverURL: String? = null
     private var serverPort: String? = null
     private var userName: String? = null
@@ -18,11 +19,13 @@ object DBController {
     private var connection: Connection? = null
     private var preparedStatement: PreparedStatement? = null
 
+    // Esto solo en caso de usar SQLite:
     private var path: String? = null
     private var bbdd: String? = null
 
     init {
         /*
+        // Esto en caso de no usar SQLite:
         serverURL = "localhost"
         serverPort = ""
         userName = "JaimeLoli"
@@ -31,12 +34,20 @@ object DBController {
          */
         jdbcDriver = "org.sqlite.JDBC"
 
-        path = "${System.getProperty("user.dir")}${File.separator}database"
-        bbdd = "${File.separator}db"
+        // Esto solo en caso de usar SQLite:
+        path = "${System.getProperty("user.dir")}${File.separator}database${File.separator}"
+        bbdd = "database.db"
     }
 
     @Throws(SQLException::class)
     fun open() {
+        /*
+        // Para mariadb:
+        val url = "jdbc:mariadb://$serverURL:$serverPort${File.separator}$databaseName"
+        connection = DriverManager.getConnection(url, userName, password)
+         */
+
+        // Para SQLite:
         val url = "jdbc:sqlite:$path$bbdd"
         connection = DriverManager.getConnection(url)
     }
@@ -48,7 +59,7 @@ object DBController {
     }
 
     @Throws(SQLException::class)
-    fun executeQuery(querySQL: String, vararg args: Any): ResultSet {
+    private fun executeQuery(querySQL: String, vararg args: Any): ResultSet {
         preparedStatement = connection?.prepareStatement(querySQL)
         for (i in args.indices) {
             preparedStatement!!.setObject(i+1, args[i])
