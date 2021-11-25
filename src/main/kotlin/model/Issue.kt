@@ -11,5 +11,5 @@ data class Issue(
         var programmers_ids: String,
         var project_id: String,
         var repository_id: String,
-        var isFinished: Boolean
+        var isFinished: Int
 )

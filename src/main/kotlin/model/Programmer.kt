@@ -12,7 +12,7 @@ data class Programmer(
         var issues_ids: String,
         var technologies: String,
         var salary: Double,
-        var isDepBoss: Boolean,
-        var isProjectManager: Boolean,
-        var isActive: Boolean
+        var isDepBoss: Int,
+        var isProjectManager: Int,
+        var isActive: Int
 )

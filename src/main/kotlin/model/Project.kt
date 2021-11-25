@@ -12,6 +12,6 @@ data class Project(
         var endDate: Date,
         var technologies: String,
         var repository_id: String,
-        var isFinished: Boolean,
+        var isFinished: Int,
         var programmers_ids: String
 )

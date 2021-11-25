@@ -1,3 +1,5 @@
+package db
+
 import java.io.File
 import java.sql.*
 import java.sql.DriverManager
@@ -36,7 +38,7 @@ object DBController {
 
         // Esto solo en caso de usar SQLite:
         path = "${System.getProperty("user.dir")}${File.separator}database${File.separator}"
-        bbdd = "database.db"
+        bbdd = "database.sqlite"
     }
 
     @Throws(SQLException::class)
