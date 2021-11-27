@@ -1,12 +1,10 @@
 package db
 
-import java.io.File
+import java.io.*
 import java.sql.*
 import java.sql.DriverManager
 import java.sql.PreparedStatement
 import kotlin.jvm.Throws
-
-//TODO: MIRAR TUTORIAL DE COMO CONECTAR ESTE CONTROLADOR A UNA BASE DE DATOS SQLITE
 
 object DBController {
     /*
@@ -82,7 +80,7 @@ object DBController {
 
     @Throws(SQLException::class)
     fun insert(insertSQL: String?, vararg args: Any?): ResultSet? {
-        preparedStatement = connection?.prepareStatement(insertSQL, Statement.RETURN_GENERATED_KEYS)
+        preparedStatement = connection?.prepareStatement(insertSQL)
         for (i in args.indices) {
             preparedStatement!!.setObject(i + 1, args[i])
         }

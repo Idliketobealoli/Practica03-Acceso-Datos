@@ -5,8 +5,8 @@ data class Department(
         var name: String,
         var boss_id: String,
         var budget: Double,
-        var finishedProjects_ids: String,
-        var developingProjects_ids: String,
+        var finishedProjects_ids: String?,
+        var developingProjects_ids: String?,
         var anualBudget: Double,
-        var bossHistory_ids: String
+        var bossHistory_ids: String?
 )
