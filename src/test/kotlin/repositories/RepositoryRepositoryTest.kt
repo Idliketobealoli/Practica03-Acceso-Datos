@@ -1,25 +1,25 @@
 package repositories
 
 import db.DBController
-import model.Programmer
+import model.Repository
 import org.junit.jupiter.api.*
 import java.io.File
 import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-class ProgrammerRepositoryTest {
-    val prog = Programmer(
-            "12341234-aaaa-aaaa-AB12-1234567890zn", "Joseju", "26/05/2002",
+class RepositoryRepositoryTest {
+    val repo = Repository(
+            "12341234-aaaa-aaaa-AB12-1234567890zn", "repo 1", "26/05/2002",
             "12345678-1234-1234-1234-123456789012",
             "11111111-1111-1111-1111-111111111111,22222222-2222-2222-2222-222222222222",
-            null, null, "JAVA,PHP", 6969.60, 0, 0, 1
+            null
     )
-    val prog2 = Programmer(
+    val repo2 = Repository(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "x", "26/05/2002",
             "xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx",
-            "22222222-2222-2222-2222-222222222222,11111111-1111-1111-1111-111111111111",
-            null, null, "JAVA,PHP,KOTLIN", 1.60, 1, 0, 0
+            null,
+            "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa,ssssssss-ssss-ssss-ssss-ssssssssssss"
     )
 
     companion object {
@@ -43,43 +43,43 @@ class ProgrammerRepositoryTest {
 
     @Test
     @Order(1)
-    fun programmerInsertWorksFine() {
-        val result = ProgrammerRepository().insert(prog)
+    fun repositoryInsertWorksFine() {
+        val result = RepositoryRepository().insert(repo)
         println("$result\n")
-        assertEquals(prog, result)
+        assertEquals(repo, result)
     }
 
     @Test
     @Order(2)
-    fun programmerGetByIdWorksFine() {
-        val result = ProgrammerRepository().getById(prog.id)
+    fun repositoryGetByIdWorksFine() {
+        val result = RepositoryRepository().getById(repo.id)
         println("$result\n")
-        assertEquals(prog, result)
+        assertEquals(repo, result)
     }
 
     @Test
     @Order(3)
-    fun programmerFindAllWorksFine() {
-        val expectedList = listOf(prog)
+    fun repositoryFindAllWorksFine() {
+        val expectedList = listOf(repo)
         println(expectedList)
-        val actualList = ProgrammerRepository().findAll()
+        val actualList = RepositoryRepository().findAll()
         println("$actualList\n")
         assertEquals(expectedList, actualList)
     }
 
     @Test
     @Order(4)
-    fun programmerUpdateWorksFine() {
-        val result = ProgrammerRepository().update(prog2)
+    fun repositoryUpdateWorksFine() {
+        val result = RepositoryRepository().update(repo2)
         println(result)
-        assertNotEquals(prog, result)
-        assertEquals(prog2, result)
+        assertNotEquals(repo, result)
+        assertEquals(repo2, result)
     }
 
     @Test
     @Order(5)
-    fun programmerDeleteWorksFine() {
-        val result = ProgrammerRepository().delete(prog2)
-        assertEquals(prog2, result)
+    fun repositoryDeleteWorksFine() {
+        val result = RepositoryRepository().delete(repo2)
+        assertEquals(repo2, result)
     }
 }

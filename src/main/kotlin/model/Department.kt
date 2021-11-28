@@ -7,6 +7,6 @@ data class Department(
         var budget: Double,
         var finishedProjects_ids: String?,
         var developingProjects_ids: String?,
-        var anualBudget: Double,
+        var anualBudget: Double?,
         var bossHistory_ids: String?
 )

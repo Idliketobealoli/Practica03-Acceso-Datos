@@ -27,7 +27,7 @@ class ProjectRepository : IRepository<Project, String> {
         val result = DBController.select(query, id) ?:
         throw SQLException("Error while consulting Project with id: $id")
         var projectResult : Project? = null
-        if (result.first()) {
+        if (result.next()) {
             projectResult = getProjectFromResultSet(result)
         }
         DBController.close()
@@ -59,7 +59,7 @@ class ProjectRepository : IRepository<Project, String> {
                 project.endDate, project.technologies, project.repository_id,
                 project.isFinished, project.programmers_ids
         ) ?: throw SQLException("Error: could not insert Project")
-        if (result.first()) {
+        if (result.next()) {
             DBController.close()
             return project
         }
@@ -67,12 +67,12 @@ class ProjectRepository : IRepository<Project, String> {
     }
 
     override fun update(project: Project) : Project {
-        val query = ("update Project set department_id = ?, projectManager_id = ?, name = ?, " +
+        val query = ("update Project set projectManager_id = ?, name = ?, " +
                 "budget = ?, endDate = ?, technologies = ?, " +
                 "isFinished = ?, programmers_ids = ? where id = ?")
         DBController.open()
         val result = DBController.update(
-                query, project.department_id, project.projectManager_id, project.name,
+                query, project.projectManager_id, project.name,
                 project.budget, project.endDate, project.technologies,
                 project.isFinished, project.programmers_ids, project.id
         )

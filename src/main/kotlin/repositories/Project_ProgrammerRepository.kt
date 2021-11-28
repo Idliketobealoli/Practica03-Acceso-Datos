@@ -28,7 +28,7 @@ class Project_ProgrammerRepository : IRepository<Project_Programmer, String> {
         val result = DBController.select(query, id)
                 ?: throw SQLException("Error while consulting Project_Programmer with id: $id")
         var pp : Project_Programmer? = null
-        if (result.first()) {
+        if (result.next()) {
             pp = getProjectProgrammerFromResultSet(result)
         }
         DBController.close()
@@ -76,7 +76,7 @@ class Project_ProgrammerRepository : IRepository<Project_Programmer, String> {
         DBController.open()
         val result = DBController.insert(query, pp.id, pp.project_id, pp.programmer_id)
                 ?: throw SQLException("Error: could not insert Project_Programmer")
-        if (result.first()) {
+        if (result.next()) {
             DBController.close()
             return pp
         }

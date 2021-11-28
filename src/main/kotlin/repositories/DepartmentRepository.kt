@@ -28,7 +28,7 @@ class DepartmentRepository : IRepository<Department, String> {
         val result = DBController.select(query, id) ?:
         throw SQLException("Error while consulting Department with id: $id")
         var departmentResult : Department? = null
-        if (result.first()) {
+        if (result.next()) {
             departmentResult = getDepartmentFromResultSet(result)
         }
         DBController.close()
@@ -57,7 +57,7 @@ class DepartmentRepository : IRepository<Department, String> {
                 department.developingProjects_ids, department.anualBudget,
                 department.bossHistory_ids
         ) ?: throw SQLException("Error: could not insert Department")
-        if (result.first()) {
+        if (result.next()) {
             DBController.close()
             return department
         }

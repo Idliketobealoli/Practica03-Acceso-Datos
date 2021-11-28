@@ -15,8 +15,9 @@ import java.util.ArrayList
 
 class ProgrammerMapper : BaseMapper<Programmer, ProgrammerDTO>() {
     override fun fromDTO (item : ProgrammerDTO) : Programmer {
+        Utils().makeSureBooleansAreCorrect(item)
         return Programmer(
-                item.id, item.name, item.registerDate,
+                item.id, item.name, Utils().matchesDate(item.registerDate),
                 item.department.id, getActiveProjectsIDS(item),
                 getCommitsIDS(item), getIssuesIDS(item),
                 getTechnologiesAsString(item), item.salary,
@@ -92,8 +93,9 @@ class ProgrammerMapper : BaseMapper<Programmer, ProgrammerDTO>() {
     }
 
     override fun toDTO (item : Programmer) : ProgrammerDTO {
+        Utils().makeSureBooleansAreCorrect(item)
         return ProgrammerDTO(
-                item.id, item.name, item.registerDate,
+                item.id, item.name, Utils().matchesDate(item.registerDate),
                 DepartmentRepository().getById(item.department_id),
                 getActiveProjects(item), getCommits(item), getIssues(item),
                 getTechnologies(item), item.salary,
@@ -137,7 +139,7 @@ class ProgrammerMapper : BaseMapper<Programmer, ProgrammerDTO>() {
         val listCommitsResult = ArrayList<Commit>()
         if (listCommits != null) {
             for (id in listCommits) {
-                //listCommitsResult.add(CommitRepository().getById(id))
+                listCommitsResult.add(CommitRepository().getById(id))
             }
         }
         return if (listCommitsResult.isNotEmpty()) listCommitsResult else null
@@ -163,7 +165,7 @@ class ProgrammerMapper : BaseMapper<Programmer, ProgrammerDTO>() {
         val listIssuesResult = ArrayList<Issue>()
         if (listIssues != null) {
             for (id in listIssues) {
-                //listIssuesResult.add(IssueRepository().getById(id))
+                listIssuesResult.add(IssueRepository().getById(id))
             }
         }
         return if (listIssuesResult.isNotEmpty()) listIssuesResult else null
