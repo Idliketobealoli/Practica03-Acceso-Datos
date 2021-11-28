@@ -1,8 +1,3 @@
-set names utf8;
-set time_zone = '+00:00';
-
-create database if not exists `database`;
-
 drop table if exists "Department";
 create table if not exists "Department" (
     "id" character(36) not null,

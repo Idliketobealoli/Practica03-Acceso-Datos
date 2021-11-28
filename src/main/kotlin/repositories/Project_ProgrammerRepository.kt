@@ -6,7 +6,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
-class Project_ProgrammerRepository : IRepository<Project_Programmer> {
+class Project_ProgrammerRepository : IRepository<Project_Programmer, String> {
     override fun findAll(): List<Project_Programmer> {
         val query = "select * from Project_Programmer"
         val pps = ArrayList<Project_Programmer>()

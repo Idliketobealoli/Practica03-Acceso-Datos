@@ -13,8 +13,8 @@ import repositories.ProjectRepository
 import utils.Utils
 import java.util.ArrayList
 
-class ProgrammerMapper {
-    fun fromDTO (item : ProgrammerDTO) : Programmer {
+class ProgrammerMapper : BaseMapper<Programmer, ProgrammerDTO>() {
+    override fun fromDTO (item : ProgrammerDTO) : Programmer {
         return Programmer(
                 item.id, item.name, item.registerDate,
                 item.department.id, getActiveProjectsIDS(item),
@@ -91,7 +91,7 @@ class ProgrammerMapper {
         else return null
     }
 
-    fun toDTO (item : Programmer) : ProgrammerDTO {
+    override fun toDTO (item : Programmer) : ProgrammerDTO {
         return ProgrammerDTO(
                 item.id, item.name, item.registerDate,
                 DepartmentRepository().getById(item.department_id),
@@ -137,7 +137,7 @@ class ProgrammerMapper {
         val listCommitsResult = ArrayList<Commit>()
         if (listCommits != null) {
             for (id in listCommits) {
-                listCommitsResult.add(CommitRepository().getById(id))
+                //listCommitsResult.add(CommitRepository().getById(id))
             }
         }
         return if (listCommitsResult.isNotEmpty()) listCommitsResult else null
@@ -163,7 +163,7 @@ class ProgrammerMapper {
         val listIssuesResult = ArrayList<Issue>()
         if (listIssues != null) {
             for (id in listIssues) {
-                listIssuesResult.add(IssueRepository().getById(id))
+                //listIssuesResult.add(IssueRepository().getById(id))
             }
         }
         return if (listIssuesResult.isNotEmpty()) listIssuesResult else null

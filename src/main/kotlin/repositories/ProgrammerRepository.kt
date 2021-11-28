@@ -6,7 +6,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
-class ProgrammerRepository : IRepository<Programmer> {
+class ProgrammerRepository : IRepository<Programmer, String> {
     override fun findAll(): List<Programmer> {
         val query = "select * from Programmer"
         val programmers = ArrayList<Programmer>()
@@ -28,7 +28,7 @@ class ProgrammerRepository : IRepository<Programmer> {
         val result = DBController.select(query, id) ?:
         throw SQLException("Error while consulting Programmer with id: $id")
         var programmmerResult : Programmer? = null
-        if (result.first()) {
+        if (result.next()) {
             programmmerResult = getProgrammerFromResultSet(result)
         }
         DBController.close()
@@ -61,7 +61,7 @@ class ProgrammerRepository : IRepository<Programmer> {
                 programmer.issues_ids, programmer.technologies, programmer.salary,
                 programmer.isDepBoss, programmer.isProjectManager, programmer.isActive
         ) ?: throw SQLException("Error: could not insert Programmer")
-        if (result.first()) {
+        if (result.next()) {
             DBController.close()
             return programmer
         }

@@ -6,7 +6,7 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
-class DepartmentRepository : IRepository<Department> {
+class DepartmentRepository : IRepository<Department, String> {
     override fun findAll(): List<Department> {
         val query = "select * from Department"
         val departments = ArrayList<Department>()

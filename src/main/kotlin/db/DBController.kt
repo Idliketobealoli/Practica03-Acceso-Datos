@@ -5,6 +5,7 @@ import java.sql.*
 import java.sql.DriverManager
 import java.sql.PreparedStatement
 import kotlin.jvm.Throws
+import org.apache.ibatis.jdbc.ScriptRunner;
 
 object DBController {
     /*
@@ -105,5 +106,13 @@ object DBController {
             preparedStatement!!.setObject(i + 1, args[i])
         }
         return preparedStatement!!.executeUpdate()
+    }
+
+    @Throws(SQLException::class)
+    fun initData(sqlPath: String) {
+        val scriptRunner = ScriptRunner(connection)
+        scriptRunner.setEscapeProcessing(false)
+        val reader = BufferedReader(FileReader(sqlPath))
+        scriptRunner.runScript(reader)
     }
 }
