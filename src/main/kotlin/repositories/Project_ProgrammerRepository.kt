@@ -106,7 +106,7 @@ class Project_ProgrammerRepository : IRepository<Project_Programmer, String> {
     }
 
     fun deleteAllWithProjectId(id: String) : Int {
-        val query = "delete * from Project_Programmer where project_id = ?"
+        val query = "delete from Project_Programmer where project_id = ?"
         DBController.open()
         val result = DBController.delete(query, id)
         DBController.close()
@@ -117,7 +117,7 @@ class Project_ProgrammerRepository : IRepository<Project_Programmer, String> {
     }
 
     fun deleteAllWithProgrammerId(id: String) : Int {
-        val query = "delete * from Project_Programmer where programmer_id = ?"
+        val query = "delete from Project_Programmer where programmer_id = ?"
         DBController.open()
         val result = DBController.delete(query, id)
         DBController.close()

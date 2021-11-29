@@ -8,6 +8,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
+@DisplayName("Repository Repository")
 class RepositoryRepositoryTest {
     val repo = Repository(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "repo 1", "26/05/2002",
@@ -42,6 +43,7 @@ class RepositoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Insert")
     @Order(1)
     fun repositoryInsertWorksFine() {
         val result = RepositoryRepository().insert(repo)
@@ -50,6 +52,7 @@ class RepositoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Get by id")
     @Order(2)
     fun repositoryGetByIdWorksFine() {
         val result = RepositoryRepository().getById(repo.id)
@@ -58,6 +61,7 @@ class RepositoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find all")
     @Order(3)
     fun repositoryFindAllWorksFine() {
         val expectedList = listOf(repo)
@@ -68,6 +72,7 @@ class RepositoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Update")
     @Order(4)
     fun repositoryUpdateWorksFine() {
         val result = RepositoryRepository().update(repo2)
@@ -77,6 +82,7 @@ class RepositoryRepositoryTest {
     }
 
     @Test
+    @DisplayName("Delete")
     @Order(5)
     fun repositoryDeleteWorksFine() {
         val result = RepositoryRepository().delete(repo2)

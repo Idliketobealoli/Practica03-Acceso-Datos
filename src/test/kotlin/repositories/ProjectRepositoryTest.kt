@@ -9,6 +9,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
+@DisplayName("Project Repository")
 class ProjectRepositoryTest {
     val project = Project(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "12345678-1234-1234-1234-123456789012",
@@ -45,6 +46,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
+    @DisplayName("Insert")
     @Order(1)
     fun projectInsertWorksFine() {
         val result = ProjectRepository().insert(project)
@@ -53,6 +55,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
+    @DisplayName("Get by id")
     @Order(2)
     fun projectGetByIdWorksFine() {
         val result = ProjectRepository().getById(project.id)
@@ -61,6 +64,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
+    @DisplayName("Find all")
     @Order(3)
     fun projectFindAllWorksFine() {
         val expectedList = listOf(project)
@@ -71,6 +75,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
+    @DisplayName("Update")
     @Order(4)
     fun projectUpdateWorksFine() {
         val result = ProjectRepository().update(project2)
@@ -80,6 +85,7 @@ class ProjectRepositoryTest {
     }
 
     @Test
+    @DisplayName("Delete")
     @Order(5)
     fun projectDeleteWorksFine() {
         val result = ProjectRepository().delete(project2)
