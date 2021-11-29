@@ -11,5 +11,5 @@ class DepartmentDTO (
         var finishedProjects: List<Project>?,
         var developingProjects: List<Project>?,
         var anualBudget: Double?,
-        var bossHistory: List<Programmer>
+        var bossHistory: List<Programmer>?
 )

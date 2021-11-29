@@ -8,7 +8,7 @@ class IssueDTO (
         var id: String,
         var author: Programmer,
         var title: String,
-        var text: String,
+        var text: String?,
         var date: String,
         var programmers: List<Programmer>?,
         var project: Project,
