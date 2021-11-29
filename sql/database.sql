@@ -69,8 +69,8 @@ create table if not exists "Issue" (
     primary key ("id")
 );
 
-drop table if exists "Commit";
-create table if not exists "Commit" (
+drop table if exists "Commite";
+create table if not exists "Commite" (
     "id" character(36) not null,
     "title" varchar(255) not null,
     "text" text,

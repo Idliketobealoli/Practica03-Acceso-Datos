@@ -8,7 +8,7 @@ import java.util.ArrayList
 
 class CommitRepository : IRepository<Commit, String> {
     override fun findAll(): List<Commit> {
-        val query = "select * from Commit"
+        val query = "select * from Commite"
         val commits = ArrayList<Commit>()
         DBController.open()
         val result = DBController.select(query) ?: throw SQLException(
@@ -23,7 +23,7 @@ class CommitRepository : IRepository<Commit, String> {
     }
 
     override fun getById(id: String): Commit {
-        val query = "select * from Commit where id = ?"
+        val query = "select * from Commite where id = ?"
         DBController.open()
         val result = DBController.select(query, id) ?:
         throw SQLException("Error while consulting Commit with id: $id")
@@ -49,7 +49,7 @@ class CommitRepository : IRepository<Commit, String> {
     }
 
     override fun insert(commit: Commit) : Commit {
-        val query = "insert into Commit values (?, ?, ?, ?, ?, ?, ?, ?)"
+        val query = "insert into Commite values (?, ?, ?, ?, ?, ?, ?, ?)"
         DBController.open()
         val result = DBController.insert(
                 query, commit.id, commit.title, commit.text,
@@ -64,7 +64,7 @@ class CommitRepository : IRepository<Commit, String> {
     }
 
     override fun update(commit: Commit) : Commit {
-        val query = ("update Commit set title = ?, text = ?, date = ?, " +
+        val query = ("update Commite set title = ?, text = ?, date = ?, " +
                 "repository_id = ?, project_id = ?, author_id = ?, issue_id = ? " +
                 "where id = ?")
         DBController.open()
@@ -81,7 +81,7 @@ class CommitRepository : IRepository<Commit, String> {
     }
 
     override fun delete(commit: Commit) : Commit {
-        val query = "delete from Commit where id = ?"
+        val query = "delete from Commite where id = ?"
         DBController.open()
         val result = DBController.delete(query, commit.id)
         DBController.close()

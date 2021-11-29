@@ -8,7 +8,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertNotEquals
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
-@DisplayName("Department Repository")
+@DisplayName("Commit Repository")
 class CommitRepositoryTest {
     val com = Commit(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "Commit 1",
