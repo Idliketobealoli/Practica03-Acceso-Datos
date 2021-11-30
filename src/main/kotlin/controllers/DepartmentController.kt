@@ -17,12 +17,14 @@ object DepartmentController {
     }
 
     private fun findAllDepartmentsXML() : String {
+        val list = service.getAllDepartments()
+        list.forEach { x -> Jaxb.departmentToXML(x) }
         return ""
     }
 
     private fun findAllDepartmentsJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
-                .toJson(service.findAll()) ?:
+                .toJson(service.getAllDepartments()) ?:
         throw SQLException("Error at DepartmentController.findAllDepartmentsJSON")
     }
 
@@ -36,6 +38,8 @@ object DepartmentController {
     }
 
     private fun getDepartmentByIdXML(id: String): String {
+        val res = service.getDepartmentById(id)
+        Jaxb.departmentToXML(res)
         return ""
     }
 
@@ -56,6 +60,8 @@ object DepartmentController {
     }
 
     private fun insertDepartmentXML(dep: DepartmentDTO): String {
+        val res = service.createDepartment(dep)
+        Jaxb.departmentToXML(res)
         return ""
     }
 
@@ -77,6 +83,8 @@ object DepartmentController {
     }
 
     private fun updateDepartmentXML(dep: DepartmentDTO): String {
+        val res = service.updateDepartment(dep)
+        Jaxb.departmentToXML(res)
         return ""
     }
 
@@ -98,6 +106,8 @@ object DepartmentController {
     }
 
     private fun deleteDepartmentXML(dep: DepartmentDTO): String {
+        val res = service.deleteDepartment(dep)
+        Jaxb.departmentToXML(res)
         return ""
     }
 

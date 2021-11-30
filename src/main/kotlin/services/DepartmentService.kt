@@ -6,7 +6,7 @@ import model.Department
 import repositories.DepartmentRepository
 
 class DepartmentService : BaseService<Department, String, DepartmentRepository>(DepartmentRepository()) {
-    val mapper = DepartmentMapper()
+    private val mapper = DepartmentMapper()
 
     fun getAllDepartments() : List<DepartmentDTO> {
         return mapper.toDTO(this.findAll())

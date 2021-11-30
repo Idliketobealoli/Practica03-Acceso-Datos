@@ -22,7 +22,7 @@ object IssueController {
 
     private fun findAllIssueJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
-                .toJson(service.findAll()) ?:
+                .toJson(service.getAllIssues()) ?:
         throw SQLException("Error at IssueController.findAllIssuesJSON")
     }
 

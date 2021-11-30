@@ -22,7 +22,7 @@ object ProgrammerController {
 
     private fun findAllProgrammersJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
-                .toJson(service.findAll()) ?:
+                .toJson(service.getAllProgrammers()) ?:
                 throw SQLException("Error at ProgrammerController.findAllProgrammersJSON")
     }
 

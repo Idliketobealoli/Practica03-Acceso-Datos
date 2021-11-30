@@ -31,7 +31,8 @@ class ProjectRepository : IRepository<Project, String> {
             projectResult = getProjectFromResultSet(result)
         }
         DBController.close()
-        return projectResult ?: throw SQLException("Error: Project with id $id does not exist.")
+        return projectResult ?:
+        throw SQLException("Error: Project with id $id does not exist.")
     }
 
     private fun getProjectFromResultSet(result: ResultSet): Project {

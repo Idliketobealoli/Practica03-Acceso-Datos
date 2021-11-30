@@ -11,6 +11,7 @@ class ProjectMapper : BaseMapper<Project, ProjectDTO>() {
     override fun fromDTO(item: ProjectDTO): Project {
         Utils().makeSureTheseAreIds(item.id, item.department.id,
                 item.projectManager.id, item.repository.id)
+        Utils().makeSureThisGuyIsProjectManager(item.projectManager, item.id)
         return Project(
                 item.id, item.department.id, item.projectManager.id,
                 item.name, item.budget,
@@ -25,6 +26,8 @@ class ProjectMapper : BaseMapper<Project, ProjectDTO>() {
     override fun toDTO(item: Project): ProjectDTO {
         Utils().makeSureTheseAreIds(item.id, item.department_id,
                 item.projectManager_id, item.repository_id)
+        Utils().makeSureThisGuyIsProjectManager(
+                ProgrammerRepository().getById(item.projectManager_id), item.id)
         return ProjectDTO(
                 item.id, DepartmentRepository().getById(item.department_id),
                 ProgrammerRepository().getById(item.projectManager_id),

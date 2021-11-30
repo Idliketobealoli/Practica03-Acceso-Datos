@@ -18,9 +18,9 @@ class DepartmentDTO (
         var finishedProjects: List<Project>?,
         @XmlElementWrapper
         var developingProjects: List<Project>?,
-        var anualBudget: Double?,
+        var anualBudget: Double,
         @XmlElementWrapper
-        var bossHistory: List<Programmer>?
+        var bossHistory: List<Programmer>
 ) {
     fun fromJSON(json : String) : DepartmentDTO? {
         return Gson().fromJson(json, DepartmentDTO::class.java)

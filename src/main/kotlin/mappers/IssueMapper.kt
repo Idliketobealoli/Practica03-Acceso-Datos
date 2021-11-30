@@ -11,6 +11,7 @@ class IssueMapper : BaseMapper<Issue, IssueDTO>() {
     override fun fromDTO(item: IssueDTO): Issue {
         Utils().makeSureTheseAreIds(item.id, item.author.id,
                 item.project.id, item.repository.id)
+        Utils().makeSureThisGuyIsProjectManager(item.author, item.project.id)
         return Issue(
                 item.id, item.author.id, item.title,
                 item.text, Utils().matchesDate(item.date),
@@ -23,10 +24,10 @@ class IssueMapper : BaseMapper<Issue, IssueDTO>() {
     override fun toDTO(item: Issue): IssueDTO {
         Utils().makeSureTheseAreIds(item.id, item.author_id,
                 item.project_id, item.repository_id)
+        val author = ProgrammerRepository().getById(item.author_id)
+        Utils().makeSureThisGuyIsProjectManager(author, item.project_id)
         return IssueDTO(
-                item.id,
-                ProgrammerRepository().getById(item.author_id),
-                item.title, item.text,
+                item.id, author, item.title, item.text,
                 Utils().matchesDate(item.date),
                 Utils().getProgrammers(item.programmers_ids),
                 ProjectRepository().getById(item.project_id),

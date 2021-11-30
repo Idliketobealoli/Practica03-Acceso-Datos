@@ -2,20 +2,13 @@ package utils
 
 import Technology
 import dto.ProgrammerDTO
-import model.Commit
-import model.Issue
-import model.Programmer
-import model.Project
-import repositories.CommitRepository
-import repositories.IssueRepository
-import repositories.ProgrammerRepository
-import repositories.ProjectRepository
+import model.*
+import repositories.*
 import java.util.*
 
 class Utils {
     fun intToBoolean(x : Int) : Boolean {
-        val res = x % 2
-        return when (res) {
+        return when (x % 2) {
             0 -> false
             1 -> true
             else -> false
@@ -82,17 +75,15 @@ class Utils {
 
     fun makeSureTheseAreIds(vararg args: String) {
         for (arg in args) {
-            if (!(arg.matches("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}".toRegex())))
+            if (!(arg.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())))
                 throw IllegalArgumentException("Error: The introduced value is not a valid id")
         }
     }
 
     fun getIssues(issuesIds: String?): List<Issue>? {
-        val listIssues = issuesIds?.split(
-                "[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}"
-                        .toRegex(), 0)
+        val listIssues = issuesIds?.split(",")
         val listIssuesResult = ArrayList<Issue>()
-        if (listIssues != null) {
+        if (!listIssues.isNullOrEmpty()) {
             for (id in listIssues) {
                 listIssuesResult.add(IssueRepository().getById(id))
             }
@@ -101,11 +92,9 @@ class Utils {
     }
 
     fun getCommits(commitsIds: String?): List<Commit>? {
-        val listCommits = commitsIds?.split(
-                "[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}"
-                        .toRegex(), 0)
+        val listCommits = commitsIds?.split(",")
         val listCommitsResult = ArrayList<Commit>()
-        if (listCommits != null) {
+        if (!listCommits.isNullOrEmpty()) {
             for (id in listCommits) {
                 listCommitsResult.add(CommitRepository().getById(id))
             }
@@ -116,7 +105,7 @@ class Utils {
     fun getTechnologies(technologies: String?): List<Technology>? {
         val listTechnologies = technologies?.split(",")
         val listTechnologiesResult = ArrayList<Technology>()
-        if (listTechnologies != null) {
+        if (!listTechnologies.isNullOrEmpty()) {
             for (t in listTechnologies) {
                 val tech = getTech(t)
                 if (tech != null) listTechnologiesResult.add(tech)
@@ -141,11 +130,12 @@ class Utils {
     }
 
     fun getProjects(projectsIds: String?): List<Project>? {
-        val listProjectsIds = projectsIds?.split(
-                "[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}"
-                        .toRegex(), 0)
+        var str = projectsIds
+        if (projectsIds?.trim()?.endsWith(",") == true) str = projectsIds.trim().dropLast(1)
+        var listProjectsIds = str?.split(",")
         val listProjects = ArrayList<Project>()
-        if (listProjectsIds != null) {
+        if (listProjectsIds?.get(0).contentEquals("null")) listProjectsIds = listOf()
+        if (!listProjectsIds.isNullOrEmpty()) {
             for (id in listProjectsIds) {
                 listProjects.add(ProjectRepository().getById(id))
             }
@@ -153,23 +143,23 @@ class Utils {
         return if (listProjects.isNotEmpty()) listProjects else null
     }
 
-    fun getTechnologiesAsString(technologies: List<Technology>?): String? {
-        val result = ""
+    fun getTechnologiesAsString(technologies: List<Technology>?): String {
+        var result = ""
         return if (!technologies.isNullOrEmpty()) {
             for (technology in technologies) {
-                result.plus("${technology.name},")
+                result+="${technology.name},"
             }
             result
         }
-        else null
+        else result
     }
 
-    fun getProjectsIDS(projects: List<Project>?): String? {
-        val result = ""
+    fun getProjectsIDS(projects: List<Project>?): String {
+        var result = ""
         return if (!projects.isNullOrEmpty()) {
             for (project in projects) {
-                if (project.id.matches("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}".toRegex())) {
-                    result.plus("${project.id},")
+                if (project.id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    result+="${project.id},"
                 }
                 else throw Exception(
                         "Error at Utils.getProjectsIDS: " +
@@ -178,15 +168,15 @@ class Utils {
             }
             result
         }
-        else null
+        else result
     }
 
-    fun getCommitsIDS(commits: List<Commit>?): String? {
-        val result = ""
+    fun getCommitsIDS(commits: List<Commit>?): String {
+        var result = ""
         return if (!commits.isNullOrEmpty()) {
             for (commit in commits) {
-                if (commit.id.matches("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}".toRegex())) {
-                    result.plus("${commit.id},")
+                if (commit.id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    result+="${commit.id},"
                 }
                 else throw Exception(
                         "Error at Utils.getCommitsIDS: " +
@@ -195,15 +185,15 @@ class Utils {
             }
             result
         }
-        else null
+        else result
     }
 
-    fun getIssuesIDS(issues: List<Issue>?): String? {
-        val result = ""
+    fun getIssuesIDS(issues: List<Issue>?): String {
+        var result = ""
         return if (!issues.isNullOrEmpty()) {
             for (issue in issues) {
-                if (issue.id.matches("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}".toRegex())) {
-                    result.plus("${issue.id},")
+                if (issue.id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    result+="${issue.id},"
                 }
                 else throw Exception(
                         "Error at Utils.getIssuesIDS: " +
@@ -212,15 +202,15 @@ class Utils {
             }
             result
         }
-        else null
+        else result
     }
 
-    fun getProgrammersIDS(programmers: List<Programmer>?): String? {
-        val result = ""
+    fun getProgrammersIDS(programmers: List<Programmer>?): String {
+        var result = ""
         return if (!programmers.isNullOrEmpty()) {
             for (programmer in programmers) {
-                if (programmer.id.matches("[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}".toRegex())) {
-                    result.plus("${programmer.id},")
+                if (programmer.id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    result+="${programmer.id},"
                 }
                 else throw Exception(
                         "Error at Utils.getProgrammersIDS: " +
@@ -229,13 +219,11 @@ class Utils {
             }
             result
         }
-        else null
+        else result
     }
 
     fun getProgrammers(programmersIds: String?): List<Programmer>? {
-        val listProgrammersIds = programmersIds?.split(
-                "[a-z0-9]{8}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{4}-[a-z0-9]{12}"
-                        .toRegex(), 0)
+        val listProgrammersIds = programmersIds?.split(",")
         val listProgrammers = ArrayList<Programmer>()
         if (listProgrammersIds != null) {
             for (id in listProgrammersIds) {
@@ -243,5 +231,29 @@ class Utils {
             }
         }
         return if (listProgrammers.isNotEmpty()) listProgrammers else null
+    }
+
+    fun makeSureThisGuyIsDepBoss(boss: Programmer) {
+        when {
+            !intToBoolean(boss.isDepBoss) ->
+                throw Exception("Error: programmer with id ${boss.id} is not a Department boss.")
+        }
+        makeSureBooleansAreCorrect(boss)
+    }
+
+    fun makeSureThisProgrammerIsInThisIssue(idProgrammer: String, idIssue: String) {
+        val issue = IssueRepository().getById(idIssue)
+        val list = issue.programmers_ids?.split(",")
+        if (list?.contains(idProgrammer) != true) throw Exception("Error: programmer with id $idProgrammer is not in Issue[$idIssue].programmers")
+    }
+
+    fun makeSureThisGuyIsProjectManager(author: Programmer, id: String) {
+        when {
+            !intToBoolean(author.isProjectManager) ->
+                throw Exception("Error: programmer with id ${author.id} is not a Project Manager.")
+            author.activeProjects_ids?.contains(id) != true ->
+                throw Exception("Error: programmer with id ${author.id} is not in this project.")
+        }
+        makeSureBooleansAreCorrect(author)
     }
 }

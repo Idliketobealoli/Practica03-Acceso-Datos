@@ -22,7 +22,7 @@ object RepositoryController {
 
     private fun findAllRepositoriesJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
-                .toJson(service.findAll()) ?:
+                .toJson(service.getAllRepositories()) ?:
         throw SQLException("Error at RepositoryController.findAllRepositoriesJSON")
     }
 

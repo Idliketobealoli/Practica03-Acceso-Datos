@@ -17,12 +17,14 @@ object CommitController {
     }
 
     private fun findAllCommitsXML() : String {
+        val list = service.findAllCommits()
+        list.forEach { x -> Jaxb.commitToXML(x) }
         return ""
     }
 
     private fun findAllCommitsJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
-                .toJson(service.findAll()) ?:
+                .toJson(service.findAllCommits()) ?:
         throw SQLException("Error at CommitController.findAllCommitsJSON")
     }
 
@@ -36,6 +38,8 @@ object CommitController {
     }
 
     private fun getCommitByIdXML(id: String): String {
+        val res = service.getCommitById(id)
+        Jaxb.commitToXML(res)
         return ""
     }
 
@@ -56,6 +60,8 @@ object CommitController {
     }
 
     private fun insertCommitXML(dto: CommitDTO): String {
+        val res = service.createCommit(dto)
+        Jaxb.commitToXML(res)
         return ""
     }
 
@@ -77,6 +83,8 @@ object CommitController {
     }
 
     private fun updateCommitXML(dto: CommitDTO): String {
+        val res = service.updateCommit(dto)
+        Jaxb.commitToXML(res)
         return ""
     }
 
@@ -98,6 +106,8 @@ object CommitController {
     }
 
     private fun deleteCommitXML(dto: CommitDTO): String {
+        val res = service.deleteCommit(dto)
+        Jaxb.commitToXML(res)
         return ""
     }
 

@@ -22,7 +22,7 @@ object ProjectController {
 
     private fun findAllProjectsJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
-                .toJson(service.findAll()) ?:
+                .toJson(service.getAllProjects()) ?:
         throw SQLException("Error at ProjectController.findAllProjectsJSON")
     }
 
