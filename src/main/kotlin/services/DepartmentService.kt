@@ -16,7 +16,7 @@ class DepartmentService : BaseService<Department, String, DepartmentRepository>(
         return mapper.toDTO(this.getById(id))
     }
 
-    fun insertDepartment(dep : DepartmentDTO) : DepartmentDTO {
+    fun createDepartment(dep : DepartmentDTO) : DepartmentDTO {
         return mapper.toDTO(this.insert(mapper.fromDTO(dep)))
     }
 

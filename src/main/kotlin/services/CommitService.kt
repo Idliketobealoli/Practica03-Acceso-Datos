@@ -16,7 +16,7 @@ class CommitService : BaseService<Commit, String, CommitRepository>(CommitReposi
         return mapper.toDTO(this.getById(id))
     }
 
-    fun insertCommit(commit: CommitDTO) : CommitDTO {
+    fun createCommit(commit: CommitDTO) : CommitDTO {
         return mapper.toDTO(this.insert(mapper.fromDTO(commit)))
     }
 
