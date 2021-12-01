@@ -21,6 +21,22 @@ class RepositoryDTO (
         @XmlElementWrapper
         var issues: List<Issue>?
 ) {
+    constructor(
+            id: String,
+            name: String,
+            creationDate: String,
+            project: Project,
+            commits: List<Commit>?,
+            issues: List<Issue>?
+    ) : this() {
+        this.id = id
+        this.name = name
+        this.creationDate = creationDate
+        this.project = project
+        this.commits = commits
+        this.issues = issues
+    }
+
     fun fromJSON(json : String) : RepositoryDTO? {
         return Gson().fromJson(json, RepositoryDTO::class.java)
     }

@@ -26,6 +26,26 @@ class CommitDTO (
         var author: Programmer,
         var issue: Issue
 ) {
+    constructor(
+            id: String,
+            title: String,
+            text: String?,
+            date: String,
+            repository: Repository,
+            project: Project,
+            author: Programmer,
+            issue: Issue,
+    ) : this() {
+        this.id = id
+        this.title = title
+        this.text = text
+        this.date = date
+        this.repository = repository
+        this.project = project
+        this.author = author
+        this.issue = issue
+    }
+
     fun fromJSON(json : String) : CommitDTO? {
         return Gson().fromJson(json, CommitDTO::class.java)
     }

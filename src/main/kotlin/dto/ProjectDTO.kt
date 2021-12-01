@@ -29,6 +29,32 @@ class ProjectDTO (
         @XmlElementWrapper
         var programmers: List<Programmer>?
 ) {
+    constructor(
+            id: String,
+            department: Department,
+            projectManager: Programmer,
+            name: String,
+            budget: Double,
+            startDate: String,
+            endDate: String?,
+            technologies: List<Technology>?,
+            repository: Repository,
+            isFinished: Boolean,
+            programmers: List<Programmer>?
+    ) : this() {
+        this.id = id
+        this.department = department
+        this.projectManager = projectManager
+        this.name = name
+        this.budget = budget
+        this.startDate = startDate
+        this.endDate = endDate
+        this.technologies = technologies
+        this.repository = repository
+        this.isFinished = isFinished
+        this.programmers = programmers
+    }
+
     fun fromJSON(json : String) : ProjectDTO? {
         return Gson().fromJson(json, ProjectDTO::class.java)
     }
