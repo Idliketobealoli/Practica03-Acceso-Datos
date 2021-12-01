@@ -7,9 +7,20 @@ import javax.xml.bind.annotation.XmlRootElement
 
 @XmlRootElement(name = "project_programmer")
 @XmlAccessorType(XmlAccessType.FIELD)
-data class Project_Programmer(
+class Project_Programmer () {
         @XmlAttribute
-        var id: String,
-        var project_id: String,
-        var programmer_id: String
-)
+        lateinit var id: String
+        lateinit var project_id: String
+        lateinit var programmer_id: String
+
+        constructor(
+                id: String,
+                project_id: String,
+                programmer_id: String
+        ) : this() {
+                this.id = id
+                this.project_id = project_id
+                this.programmer_id = programmer_id
+        }
+}
+

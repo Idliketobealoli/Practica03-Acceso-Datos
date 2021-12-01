@@ -17,6 +17,8 @@ object ProgrammerController {
     }
 
     private fun findAllProgrammersXML(): String {
+        val list = service.getAllProgrammers()
+        list.forEach { x -> Jaxb.programmerToXML(x) }
         return ""
     }
 
@@ -36,6 +38,8 @@ object ProgrammerController {
     }
 
     private fun getProgrammerByIdXML(id: String): String {
+        val res = service.getProgrammerById(id)
+        Jaxb.programmerToXML(res)
         return ""
     }
 
@@ -56,6 +60,8 @@ object ProgrammerController {
     }
 
     private fun insertProgrammerXML(prog: ProgrammerDTO): String {
+        val res = service.createProgrammer(prog)
+        Jaxb.programmerToXML(res)
         return ""
     }
 
@@ -77,6 +83,8 @@ object ProgrammerController {
     }
 
     private fun updateProgrammerXML(prog: ProgrammerDTO): String {
+        val res = service.updateProgrammer(prog)
+        Jaxb.programmerToXML(res)
         return ""
     }
 
@@ -98,6 +106,8 @@ object ProgrammerController {
     }
 
     private fun deleteProgrammerXML(prog: ProgrammerDTO): String {
+        val res = service.deleteProgrammer(prog)
+        Jaxb.programmerToXML(res)
         return ""
     }
 

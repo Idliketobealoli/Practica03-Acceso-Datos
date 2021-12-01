@@ -1,29 +1,47 @@
-import dto.CommitDTO
-import dto.DepartmentDTO
-import dto.ProgrammerDTO
+import dto.*
 import java.io.File
 import java.nio.file.Files
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.Marshaller
 
 object Jaxb {
-    private val fileDirectory = File("${System.getProperty("user.dir")}${ File.separator}temporalFiles")
-    val file = File("${System.getProperty("user.dir")}${ File.separator}temporalFiles${File.separator}temp")
+    private val fileDirectory = File("${System.getProperty("user.dir")}${File.separator}temporalFiles")
+    val file = File("${System.getProperty("user.dir")}${File.separator}temporalFiles${File.separator}temp")
+
     init {
-        if (!fileDirectory.exists())
-        {
+        if (!fileDirectory.exists()) {
             fileDirectory.mkdirs()
         }
     }
 
     fun departmentToXML(x: DepartmentDTO) {
-        //val jaxbContext = JAXBContext.newInstance(DepartmentDTO::class.java)
-        //printXML(jaxbContext, x)
+        val jaxbContext = JAXBContext.newInstance(DepartmentDTO::class.java)
+        printXML(jaxbContext, x)
     }
 
     fun programmerToXML(x: ProgrammerDTO) {
-        //val jaxbContext = JAXBContext.newInstance(ProgrammerDTO::class.java)
-        //printXML(jaxbContext, x)
+        val jaxbContext = JAXBContext.newInstance(ProgrammerDTO::class.java)
+        printXML(jaxbContext, x)
+    }
+
+    fun commitToXML(x: CommitDTO) {
+        val jaxbContext = JAXBContext.newInstance(CommitDTO::class.java)
+        printXML(jaxbContext, x)
+    }
+
+    fun projectToXML(x: ProjectDTO) {
+        val jaxbContext = JAXBContext.newInstance(ProjectDTO::class.java)
+        printXML(jaxbContext, x)
+    }
+
+    fun issueToXML(x: IssueDTO) {
+        val jaxbContext = JAXBContext.newInstance(IssueDTO::class.java)
+        printXML(jaxbContext, x)
+    }
+
+    fun repositoryToXML(x: RepositoryDTO) {
+        val jaxbContext = JAXBContext.newInstance(RepositoryDTO::class.java)
+        printXML(jaxbContext, x)
     }
 
     private fun printXML(jaxbContext: JAXBContext, x: Any) {
@@ -32,9 +50,5 @@ object Jaxb {
         marshaller.marshal(x, file)
         val result = Files.readAllLines(file.toPath())
         result.forEach { y -> println(y) }
-    }
-
-    fun commitToXML(x: CommitDTO) {
-
     }
 }

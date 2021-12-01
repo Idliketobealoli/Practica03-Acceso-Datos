@@ -17,6 +17,8 @@ object RepositoryController {
     }
 
     private fun findAllRepositoriesXML() : String {
+        val list = service.getAllRepositories()
+        list.forEach { x -> Jaxb.repositoryToXML(x) }
         return ""
     }
 
@@ -36,6 +38,8 @@ object RepositoryController {
     }
 
     private fun getRepositoryByIdXML(id: String): String {
+        val x = service.getRepositoryById(id)
+        Jaxb.repositoryToXML(x)
         return ""
     }
 
@@ -56,6 +60,8 @@ object RepositoryController {
     }
 
     private fun insertRepositoryXML(dto: RepositoryDTO): String {
+        val x = service.createRepository(dto)
+        Jaxb.repositoryToXML(x)
         return ""
     }
 
@@ -77,6 +83,8 @@ object RepositoryController {
     }
 
     private fun updateRepositoryXML(dto: RepositoryDTO): String {
+        val x = service.updateRepository(dto)
+        Jaxb.repositoryToXML(x)
         return ""
     }
 
@@ -98,6 +106,8 @@ object RepositoryController {
     }
 
     private fun deleteRepositoryXML(dto: RepositoryDTO): String {
+        val x = service.deleteRepository(dto)
+        Jaxb.repositoryToXML(x)
         return ""
     }
 

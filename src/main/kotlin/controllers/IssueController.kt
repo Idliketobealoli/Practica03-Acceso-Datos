@@ -17,6 +17,8 @@ object IssueController {
     }
 
     private fun findAllIssuesXML() : String {
+        val list = service.getAllIssues()
+        list.forEach { x -> Jaxb.issueToXML(x) }
         return ""
     }
 
@@ -36,6 +38,8 @@ object IssueController {
     }
 
     private fun getIssueByIdXML(id: String): String {
+        val x = service.getIssueById(id)
+        Jaxb.issueToXML(x)
         return ""
     }
 
@@ -56,6 +60,8 @@ object IssueController {
     }
 
     private fun insertIssueXML(dto: IssueDTO): String {
+        val x = service.createIssue(dto)
+        Jaxb.issueToXML(x)
         return ""
     }
 
@@ -77,6 +83,8 @@ object IssueController {
     }
 
     private fun updateIssueXML(dto: IssueDTO): String {
+        val x = service.updateIssue(dto)
+        Jaxb.issueToXML(x)
         return ""
     }
 
@@ -98,6 +106,8 @@ object IssueController {
     }
 
     private fun deleteIssueXML(dto: IssueDTO): String {
+        val x = service.deleteIssue(dto)
+        Jaxb.issueToXML(x)
         return ""
     }
 

@@ -17,6 +17,8 @@ object ProjectController {
     }
 
     private fun findAllProjectsXML() : String {
+        val list = service.getAllProjects()
+        list.forEach { x -> Jaxb.projectToXML(x) }
         return ""
     }
 
@@ -36,6 +38,8 @@ object ProjectController {
     }
 
     private fun getProjectByIdXML(id: String): String {
+        val res = service.getProjectById(id)
+        Jaxb.projectToXML(res)
         return ""
     }
 
@@ -56,6 +60,8 @@ object ProjectController {
     }
 
     private fun insertProjectXML(dto: ProjectDTO): String {
+        val res = service.createProject(dto)
+        Jaxb.projectToXML(res)
         return ""
     }
 
@@ -77,6 +83,8 @@ object ProjectController {
     }
 
     private fun updateProjectXML(dto: ProjectDTO): String {
+        val res = service.updateProject(dto)
+        Jaxb.projectToXML(res)
         return ""
     }
 
@@ -98,6 +106,8 @@ object ProjectController {
     }
 
     private fun deleteProjectXML(dto: ProjectDTO): String {
+        val res = service.deleteProject(dto)
+        Jaxb.projectToXML(res)
         return ""
     }
 

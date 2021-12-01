@@ -51,7 +51,7 @@ object CommitController {
     }
 
 
-    fun insertDepartment(dto : CommitDTO, returnMode : String) : String {
+    fun insertCommit(dto : CommitDTO, returnMode : String) : String {
         return when (returnMode.toUpperCase()) {
             "XML" -> insertCommitXML(dto)
             "JSON" -> insertCommitJSON(dto)
@@ -74,7 +74,7 @@ object CommitController {
     }
 
 
-    fun updateDepartment(dto: CommitDTO, returnMode : String) : String {
+    fun updateCommit(dto: CommitDTO, returnMode : String) : String {
         return when (returnMode.toUpperCase()) {
             "XML" -> updateCommitXML(dto)
             "JSON" -> updateCommitJSON(dto)

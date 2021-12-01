@@ -1,6 +1,8 @@
+import controllers.CommitController
 import controllers.DepartmentController
 import controllers.ProjectController
 import db.DBController
+import dto.CommitDTO
 import dto.DepartmentDTO
 import dto.ProgrammerDTO
 import dto.ProjectDTO
@@ -14,7 +16,8 @@ object Empresa {
             "prog0001-0000-0000-0000-000000000000", "prog", "26/05/2002",
             "depart01-0000-0000-0000-000000000000",
             "proj0001-0000-0000-0000-000000000000,projDTO1-0000-0000-0000-000000000000",
-            "comm0001-0000-0000-0000-000000000000,comm0002-0000-0000-0000-000000000000",
+            "comm0001-0000-0000-0000-000000000000,comm0002-0000-0000-0000-000000000000," +
+                    "comm0003-0000-0000-0000-000000000000,comm0004-0000-0000-0000-000000000000",
             "issu0001-0000-0000-0000-000000000000",
             "JAVA,KOTLIN", 2.22, 0,0,1
     )
@@ -58,12 +61,12 @@ object Empresa {
     )
     val repo1 = Repository(
             "repo0001-0000-0000-0000-000000000000", "repo 1", "22/02/6006",
-            proj1.id, "comm0001-0000-0000-0000-000000000000",
+            proj1.id, "comm0001-0000-0000-0000-000000000000,comm0003-0000-0000-0000-000000000000",
             "issu0001-0000-0000-0000-000000000000"
     )
     val repo2 = Repository(
             "repo0002-0000-0000-0000-000000000000", "repo 2", "22/02/6006",
-            proj2.id, "comm0002-0000-0000-0000-000000000000",
+            proj2.id, "comm0002-0000-0000-0000-000000000000,comm0004-0000-0000-0000-000000000000",
             "issu0002-0000-0000-0000-000000000000"
     )
     val issu1 = Issue(
@@ -74,7 +77,7 @@ object Empresa {
     val issu2 = Issue(
             "issu0002-0000-0000-0000-000000000000", manager.id, "issue 2",
             null, "22/02/2022",
-            null, proj2.id, repo2.id, 1
+            prog.id, proj2.id, repo2.id, 1
     )
     val comm1 = Commit(
             "comm0001-0000-0000-0000-000000000000", "commit 1", null, "11/11/2001",
@@ -88,22 +91,6 @@ object Empresa {
             "depart02-0000-0000-0000-000000000000", "dep3", boss.id, 11.0,
             null, null,0.0, "",
     )
-    val depart = DepartmentDTO(
-            "depart01-0000-0000-0000-000000000000", "dep1", boss, 11111.0,
-            listOf(proj1, proj2), null,0.0, listOf(),
-    )
-    val depart2 = DepartmentDTO(
-            "depart01-0000-0000-0000-000000000000", "dep2", boss2, -11111.0,
-            listOf(proj1, proj2), null,0.0, listOf(),
-    )
-    val projDto1 = ProjectDTO("projDTO1-0000-0000-0000-000000000000", depart3, manager,
-            "project uwu", 64563.3, "01/01/2001", null,
-            listOf(Technology.TYPESCRIPT,Technology.PYTHON), repo1,
-            false, listOf(prog))
-    val projDto2 = ProjectDTO(projDto1.id, depart3, manager,
-            "project modified", 111111.3, "01/01/2001", null,
-            listOf(Technology.TYPESCRIPT,Technology.PHP,Technology.PYTHON), repo1,
-            false, listOf(prog))
 
     fun checkService() {
         try {
@@ -125,56 +112,119 @@ object Empresa {
         DBController.close()
     }
 
-    fun departmentsXML() {
+    fun departments(x: String) {
+        val depart = DepartmentDTO(
+                "depart01-0000-0000-0000-000000000000", "dep1", boss, 11111.0,
+                listOf(proj1, proj2), null,0.0, listOf(),
+        )
+        val depart2 = DepartmentDTO(
+                "depart01-0000-0000-0000-000000000000", "dep2", boss2, -11111.0,
+                listOf(proj1, proj2), null,0.0, listOf(),
+        )
+
         println("INSERT Department:")
-        println(DepartmentController.insertDepartment(depart,"xml"))
+        println(DepartmentController.insertDepartment(depart,x))
         println("\n\nFIND ALL Departments:")
-        println(DepartmentController.findAllDepartments("xml"))
+        println(DepartmentController.findAllDepartments(x))
         println("\n\nGET Department with ID = ${depart.id}:")
-        println(DepartmentController.getDepartmentById(depart.id,"xml"))
+        println(DepartmentController.getDepartmentById(depart.id,x))
         println("\n\nUPDATE Department with ID = ${depart.id}:")
-        println(DepartmentController.updateDepartment(depart2, "xml"))
+        println(DepartmentController.updateDepartment(depart2, x))
         println("\n\nDELETE Department with ID = ${depart.id}:")
-        println(DepartmentController.deleteDepartment(depart2,"xml"))
+        println(DepartmentController.deleteDepartment(depart2,x))
+        println("\n\n\n")
     }
 
-    fun departmentsJSON() {
-        println("INSERT Department:")
-        println(DepartmentController.insertDepartment(depart,"json"))
-        println("\n\nFIND ALL Departments:")
-        println(DepartmentController.findAllDepartments("json"))
-        println("\n\nGET Department with ID = ${depart.id}:")
-        println(DepartmentController.getDepartmentById(depart.id,"json"))
-        println("\n\nUPDATE Department with ID = ${depart.id}:")
-        println(DepartmentController.updateDepartment(depart2, "json"))
-        println("\n\nDELETE Department with ID = ${depart.id}:")
-        println(DepartmentController.deleteDepartment(depart2,"json"))
-    }
+    fun projects(x: String) {
+        val projDto1 = ProjectDTO("projDTO1-0000-0000-0000-000000000000", depart3, manager,
+                "project uwu", 64563.3, "01/01/2001", null,
+                listOf(Technology.TYPESCRIPT,Technology.PYTHON), repo1,
+                false, listOf(prog)
+        )
+        val projDto2 = ProjectDTO(projDto1.id, depart3, manager,
+                "project modified", 111111.3, "01/01/2001", null,
+                listOf(Technology.TYPESCRIPT,Technology.PHP,Technology.PYTHON), repo1,
+                false, listOf(prog)
+        )
 
-
-    fun projectsXML() {
         println("INSERT Project:")
-        println(ProjectController.insertProject(projDto1,"xml"))
+        println(ProjectController.insertProject(projDto1,x))
         println("\n\nFIND ALL Projects:")
-        println(ProjectController.findAllProjects("xml"))
+        println(ProjectController.findAllProjects(x))
         println("\n\nGET Project with ID = ${projDto1.id}:")
-        println(ProjectController.getProjectById(projDto1.id,"xml"))
+        println(ProjectController.getProjectById(projDto1.id,x))
         println("\n\nUPDATE Project with ID = ${projDto2.id}:")
-        println(ProjectController.updateProject(projDto2, "xml"))
+        println(ProjectController.updateProject(projDto2, x))
         println("\n\nDELETE Project with ID = ${projDto2.id}:")
-        println(ProjectController.deleteProject(projDto2,"xml"))
+        println(ProjectController.deleteProject(projDto2,x))
+        println("\n\n\n")
     }
 
-    fun projectsJSON() {
-        println("INSERT Project:")
-        println(ProjectController.insertProject(projDto1, "json"))
-        println("\n\nFIND ALL Projects:")
-        println(ProjectController.findAllProjects("json"))
-        println("\n\nGET Project with ID = ${projDto1.id}:")
-        println(ProjectController.getProjectById(projDto1.id, "json"))
-        println("\n\nUPDATE Project with ID = ${projDto2.id}:")
-        println(ProjectController.updateProject(projDto2, "json"))
-        println("\n\nDELETE Project with ID = ${projDto2.id}:")
-        println(ProjectController.deleteProject(projDto2, "json"))
+    fun commits(x: String) {
+        val commDTO1 = CommitDTO(
+                "comm0003-0000-0000-0000-000000000000", "commit dto 1", null, "11/11/2001",
+                repo1, proj1, prog, issu1
+        )
+        val commDTO2 = CommitDTO(
+                "comm0003-0000-0000-0000-000000000000", "commit dto editado", "adsafghgfdgfbxvasfgrehtgfbvdfgehtgfbsgsfasfa", "11/11/2001",
+                repo1, proj1, prog, issu1
+        )
+
+        println("INSERT Commit:")
+        println(CommitController.insertCommit(commDTO1,x))
+        println("\n\nFIND ALL Commits:")
+        println(CommitController.findAllCommits(x))
+        println("\n\nGET Commit with ID = ${commDTO1.id}:")
+        println(CommitController.getCommitById(commDTO1.id,x))
+        println("\n\nUPDATE Commit with ID = ${commDTO2.id}:")
+        println(CommitController.updateCommit(commDTO2, x))
+        println("\n\nDELETE Commit with ID = ${commDTO2.id}:")
+        println(CommitController.deleteCommit(commDTO2,x))
+        println("\n\n\n")
+    }
+
+    //TODO: CASAR COSAS
+    fun issues(x: String) {
+        println("INSERT Issues:")
+        println(CommitController.insertCommit(commDTO1,x))
+        println("\n\nFIND ALL Issues:")
+        println(CommitController.findAllCommits(x))
+        println("\n\nGET Issue with ID = ${commDTO1.id}:")
+        println(CommitController.getCommitById(commDTO1.id,x))
+        println("\n\nUPDATE Issue with ID = ${commDTO2.id}:")
+        println(CommitController.updateCommit(commDTO2, x))
+        println("\n\nDELETE Issue with ID = ${commDTO2.id}:")
+        println(CommitController.deleteCommit(commDTO2,x))
+        println("\n\n\n")
+    }
+
+    //TODO: CASAR COSAS
+    fun programmers(x: String) {
+        println("INSERT Issues:")
+        println(CommitController.insertCommit(commDTO1,x))
+        println("\n\nFIND ALL Issues:")
+        println(CommitController.findAllCommits(x))
+        println("\n\nGET Issue with ID = ${commDTO1.id}:")
+        println(CommitController.getCommitById(commDTO1.id,x))
+        println("\n\nUPDATE Issue with ID = ${commDTO2.id}:")
+        println(CommitController.updateCommit(commDTO2, x))
+        println("\n\nDELETE Issue with ID = ${commDTO2.id}:")
+        println(CommitController.deleteCommit(commDTO2,x))
+        println("\n\n\n")
+    }
+
+    //TODO: CASAR COSAS
+    fun repositories(x: String) {
+        println("INSERT Issues:")
+        println(CommitController.insertCommit(commDTO1,x))
+        println("\n\nFIND ALL Issues:")
+        println(CommitController.findAllCommits(x))
+        println("\n\nGET Issue with ID = ${commDTO1.id}:")
+        println(CommitController.getCommitById(commDTO1.id,x))
+        println("\n\nUPDATE Issue with ID = ${commDTO2.id}:")
+        println(CommitController.updateCommit(commDTO2, x))
+        println("\n\nDELETE Issue with ID = ${commDTO2.id}:")
+        println(CommitController.deleteCommit(commDTO2,x))
+        println("\n\n\n")
     }
 }
