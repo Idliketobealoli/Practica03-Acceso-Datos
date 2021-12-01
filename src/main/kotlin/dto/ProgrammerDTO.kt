@@ -36,6 +36,32 @@ class ProgrammerDTO(
         @XmlAttribute(name = "active")
         var isActive: Boolean
 ) {
+    constructor(
+            id: String,
+            name: String,
+            registerDate: String,
+            department: Department,
+            activeProjects: List<Project>?,
+            commits: List<Commit>?,
+            issues: List<Issue>?,
+            technologies: List<Technology>?,
+            salary: Double,
+            isDepBoss: Boolean,
+            isActive: Boolean
+    ) : this() {
+        this.id = id
+        this.name = name
+        this.registerDate = registerDate
+        this.department = department
+        this.activeProjects = activeProjects
+        this.commits = commits
+        this.issues = issues
+        this.technologies = technologies
+        this.salary = salary
+        this.isDepBoss = isDepBoss
+        this.isActive = isActive
+    }
+
     fun fromJSON(json: String) : ProgrammerDTO? {
         return Gson().fromJson(json, ProgrammerDTO::class.java)
     }
