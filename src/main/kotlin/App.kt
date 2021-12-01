@@ -1,6 +1,6 @@
 fun main() {
     Empresa.checkService()
     Empresa.departmentsJSON()
-    //Empresa.departmentsXML()
+    Empresa.departmentsXML()
     Empresa.projectsJSON()
  }

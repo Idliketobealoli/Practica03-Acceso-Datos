@@ -167,16 +167,14 @@ object Empresa {
 
     fun projectsJSON() {
         println("INSERT Project:")
-        println(ProjectController.insertProject(projDto1,"json"))
+        println(ProjectController.insertProject(projDto1, "json"))
         println("\n\nFIND ALL Projects:")
         println(ProjectController.findAllProjects("json"))
         println("\n\nGET Project with ID = ${projDto1.id}:")
-        println(ProjectController.getProjectById(projDto1.id,"json"))
+        println(ProjectController.getProjectById(projDto1.id, "json"))
         println("\n\nUPDATE Project with ID = ${projDto2.id}:")
         println(ProjectController.updateProject(projDto2, "json"))
         println("\n\nDELETE Project with ID = ${projDto2.id}:")
-        println(ProjectController.deleteProject(projDto2,"json"))
+        println(ProjectController.deleteProject(projDto2, "json"))
     }
-
-
 }
