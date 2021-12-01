@@ -13,7 +13,7 @@ object Empresa {
     val prog = Programmer(
             "prog0001-0000-0000-0000-000000000000", "prog", "26/05/2002",
             "depart01-0000-0000-0000-000000000000",
-            "proj0001-0000-0000-0000-000000000000",
+            "proj0001-0000-0000-0000-000000000000,projDTO1-0000-0000-0000-000000000000",
             "comm0001-0000-0000-0000-000000000000,comm0002-0000-0000-0000-000000000000",
             "issu0001-0000-0000-0000-000000000000",
             "JAVA,KOTLIN", 2.22, 0,0,1
@@ -37,7 +37,7 @@ object Empresa {
     val manager = Programmer(
             "prog0003-0000-0000-0000-000000000000", "manager", "26/08/2002",
             "depart01-0000-0000-0000-000000000000",
-            "proj0001-0000-0000-0000-000000000000",
+            "proj0001-0000-0000-0000-000000000000,projDTO1-0000-0000-0000-000000000000",
             null,
             "issu0001-0000-0000-0000-000000000000",
             "KOTLIN", 2222.22, 0,1,0
@@ -96,11 +96,11 @@ object Empresa {
             "depart01-0000-0000-0000-000000000000", "dep2", boss2, -11111.0,
             listOf(proj1, proj2), null,0.0, listOf(),
     )
-    val projDto1 = ProjectDTO(proj1.id, depart3, manager,
+    val projDto1 = ProjectDTO("projDTO1-0000-0000-0000-000000000000", depart3, manager,
             "project uwu", 64563.3, "01/01/2001", null,
             listOf(Technology.TYPESCRIPT,Technology.PYTHON), repo1,
             false, listOf(prog))
-    val projDto2 = ProjectDTO(proj1.id, depart3, manager,
+    val projDto2 = ProjectDTO(projDto1.id, depart3, manager,
             "project modified", 111111.3, "01/01/2001", null,
             listOf(Technology.TYPESCRIPT,Technology.PHP,Technology.PYTHON), repo1,
             false, listOf(prog))

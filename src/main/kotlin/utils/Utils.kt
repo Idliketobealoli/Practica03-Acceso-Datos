@@ -85,7 +85,8 @@ class Utils {
         val listIssuesResult = ArrayList<Issue>()
         if (!listIssues.isNullOrEmpty()) {
             for (id in listIssues) {
-                listIssuesResult.add(IssueRepository().getById(id))
+                if (id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex()))
+                    listIssuesResult.add(IssueRepository().getById(id))
             }
         }
         return if (listIssuesResult.isNotEmpty()) listIssuesResult else null
@@ -96,7 +97,9 @@ class Utils {
         val listCommitsResult = ArrayList<Commit>()
         if (!listCommits.isNullOrEmpty()) {
             for (id in listCommits) {
-                listCommitsResult.add(CommitRepository().getById(id))
+                if (id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    listCommitsResult.add(CommitRepository().getById(id))
+                }
             }
         }
         return if (listCommitsResult.isNotEmpty()) listCommitsResult else null
@@ -137,7 +140,9 @@ class Utils {
         if (listProjectsIds?.get(0).contentEquals("null")) listProjectsIds = listOf()
         if (!listProjectsIds.isNullOrEmpty()) {
             for (id in listProjectsIds) {
-                listProjects.add(ProjectRepository().getById(id))
+                if (id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    listProjects.add(ProjectRepository().getById(id))
+                }
             }
         }
         return if (listProjects.isNotEmpty()) listProjects else null
@@ -225,9 +230,11 @@ class Utils {
     fun getProgrammers(programmersIds: String?): List<Programmer>? {
         val listProgrammersIds = programmersIds?.split(",")
         val listProgrammers = ArrayList<Programmer>()
-        if (listProgrammersIds != null) {
+        if (!listProgrammersIds.isNullOrEmpty()) {
             for (id in listProgrammersIds) {
-                listProgrammers.add(ProgrammerRepository().getById(id))
+                if (id.matches("[a-zA-Z0-9]{8}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{4}-[a-zA-Z0-9]{12}".toRegex())) {
+                    listProgrammers.add(ProgrammerRepository().getById(id))
+                }
             }
         }
         return if (listProgrammers.isNotEmpty()) listProgrammers else null
