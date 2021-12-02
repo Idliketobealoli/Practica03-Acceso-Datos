@@ -11,6 +11,9 @@ import javax.xml.bind.annotation.XmlAccessorType
 import javax.xml.bind.annotation.XmlAttribute
 import javax.xml.bind.annotation.XmlRootElement
 
+/**
+ * Data transfer Object de Commit. Preparado para ser sacado en formato XML y JSON.
+ */
 @XmlRootElement(name = "commit")
 @XmlAccessorType(XmlAccessType.FIELD)
 class CommitDTO () {
@@ -46,10 +49,17 @@ class CommitDTO () {
         this.author = author
         this.issue = issue
     }
+
+    /**
+     * De un string JSON lo convierte en un CommitDTO
+     */
     fun fromJSON(json : String) : CommitDTO? {
         return Gson().fromJson(json, CommitDTO::class.java)
     }
 
+    /**
+     * De un CommitDTO lo convierte en un string JSON
+     */
     fun toJSON() : String {
         return GsonBuilder().setPrettyPrinting().create().toJson(this)
     }

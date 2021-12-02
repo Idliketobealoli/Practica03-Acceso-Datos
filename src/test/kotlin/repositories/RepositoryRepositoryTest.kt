@@ -68,18 +68,23 @@ class RepositoryRepositoryTest {
     fun repositoryGetByIdWorksFine() {
         val result = RepositoryRepository().getById(repo.id)
         println("$result\n")
-        assertEquals(repo, result)
+        assertEquals(repo.id, result.id)
     }
 
     @Test
     @DisplayName("Find all")
     @Order(3)
     fun repositoryFindAllWorksFine() {
-        val expectedList = listOf(repo)
+        val expectedList = ArrayList<String>()
+        expectedList.add(repoPRE1.id)
+        expectedList.add(repoPRE2.id)
+        expectedList.add(repo.id)
         println(expectedList)
         val actualList = RepositoryRepository().findAll()
+        val res = ArrayList<String>()
+        actualList.forEach { x -> res.add(x.id) }
         println("$actualList\n")
-        assertEquals(expectedList, actualList)
+        assertEquals(expectedList, res)
     }
 
     @Test

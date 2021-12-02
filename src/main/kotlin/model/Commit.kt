@@ -5,6 +5,9 @@ import javax.xml.bind.annotation.XmlAccessorType
 import javax.xml.bind.annotation.XmlAttribute
 import javax.xml.bind.annotation.XmlRootElement
 
+/**
+ * Clase POKO cuyos campos irán a la base de datos.
+ */
 @XmlRootElement(name = "commit")
 @XmlAccessorType(XmlAccessType.FIELD)
 class Commit () {

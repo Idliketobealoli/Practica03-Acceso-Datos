@@ -4,16 +4,22 @@ import java.nio.file.Files
 import javax.xml.bind.JAXBContext
 import javax.xml.bind.Marshaller
 
+/**
+ * Clase encargada de pasar el DTO introducido a xml.
+ */
 object Jaxb {
     private val fileDirectory = File("${System.getProperty("user.dir")}${File.separator}temporalFiles")
-    val file = File("${System.getProperty("user.dir")}${File.separator}temporalFiles${File.separator}temp")
+    val file = File("${System.getProperty("user.dir")}${File.separator}temporalFiles${File.separator}temp.txt")
 
+    /**
+     * Si el directorio donde se va a almacenar el xml a mostrar no existe, lo crea para que vaya correcto todo
+     */
     init {
         if (!fileDirectory.exists()) {
             fileDirectory.mkdirs()
         }
     }
-
+    
     fun departmentToXML(x: DepartmentDTO) {
         val jaxbContext = JAXBContext.newInstance(DepartmentDTO::class.java)
         printXML(jaxbContext, x)

@@ -8,7 +8,14 @@ import repositories.ProjectRepository
 import repositories.RepositoryRepository
 import utils.Utils
 
+/**
+ * Clase encargada de mapear un objeto Commit pasandolo a DTO o a la inversa.
+ */
 class CommitMapper : BaseMapper<Commit, CommitDTO>() {
+
+    /**
+     * Coge un commitDTO y lo convierte en un Commit
+     */
     override fun fromDTO(item: CommitDTO): Commit {
         Utils().makeSureTheseAreIds(item.id, item.repository.id,
                 item.project.id, item.author.id, item.issue.id)
@@ -21,6 +28,9 @@ class CommitMapper : BaseMapper<Commit, CommitDTO>() {
         )
     }
 
+    /**
+     * Coge un commit y lo convierte en CommitDTO
+     */
     override fun toDTO(item: Commit): CommitDTO {
         Utils().makeSureTheseAreIds(item.id, item.repository_id,
                 item.project_id, item.author_id, item.issue_id)

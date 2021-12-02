@@ -6,7 +6,13 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
+/**
+ * Clase encargada de hacer las operaciones CRUD de Repository.
+ */
 class CommitRepository : IRepository<Commit, String> {
+    /**
+     * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos commit
+     */
     override fun findAll(): List<Commit> {
         val query = "select * from Commite"
         val commits = ArrayList<Commit>()
@@ -22,6 +28,9 @@ class CommitRepository : IRepository<Commit, String> {
         return commits
     }
 
+    /**
+     * Encuentra el commit cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Commit, si lo encuentra.
+     */
     override fun getById(id: String): Commit {
         val query = "select * from Commite where id = ?"
         DBController.open()
@@ -35,6 +44,10 @@ class CommitRepository : IRepository<Commit, String> {
         return commit ?: throw SQLException("Error: Commit with id $id does not exist.")
     }
 
+    /**
+     * Crea un objeto commit a partir del resultSet devuelto por el DBController
+     * @see DBController
+     */
     private fun getCommitFromResultSet(result: ResultSet): Commit {
         return Commit(
                 result.getString("id"),
@@ -48,6 +61,10 @@ class CommitRepository : IRepository<Commit, String> {
         )
     }
 
+    /**
+     * Inserta un commit en la base de datos, donde cada atributo del commit va a un campo de la tabla commit,
+     * devolviendo dicho commit si lo consigue.
+     */
     override fun insert(commit: Commit) : Commit {
         val query = "insert into Commite values (?, ?, ?, ?, ?, ?, ?, ?)"
         DBController.open()
@@ -63,6 +80,9 @@ class CommitRepository : IRepository<Commit, String> {
         else throw SQLException("Error: could not insert Commit into DB")
     }
 
+    /**
+     * Modifica un commit, si existe, devolviendo dicho commit si lo consigue.
+     */
     override fun update(commit: Commit) : Commit {
         val query = ("update Commite set title = ?, text = ?, date = ?, " +
                 "repository_id = ?, project_id = ?, author_id = ?, issue_id = ? " +
@@ -80,6 +100,9 @@ class CommitRepository : IRepository<Commit, String> {
         else throw SQLException("Error: could not update Commit with id ${commit.id}")
     }
 
+    /**
+     * Borra un commit, si existe, devolviendo dicho commit si lo consigue.
+     */
     override fun delete(commit: Commit) : Commit {
         val query = "delete from Commite where id = ?"
         DBController.open()

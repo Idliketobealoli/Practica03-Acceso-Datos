@@ -5,6 +5,9 @@ import mappers.CommitMapper
 import model.Commit
 import repositories.CommitRepository
 
+/**
+ * Clase encargada de llamar al mapper y decirle que mapee el resultado obtenido de la consulta correspondiente.
+ */
 class CommitService : BaseService<Commit, String, CommitRepository>(CommitRepository()) {
     val mapper = CommitMapper()
 

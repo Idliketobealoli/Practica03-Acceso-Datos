@@ -11,6 +11,21 @@ import kotlin.test.assertNotEquals
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @DisplayName("Project Repository")
 class ProjectRepositoryTest {
+    val projectPRE1 = Project(
+    "proj0001-0000-0000-0000-000000000000",
+    "depart02-0000-0000-0000-000000000000", "prog0003-0000-0000-0000-000000000000",
+    "project 1", 3333.3, "02/02/2000", null,
+    "JAVA,C", "repo0001-0000-0000-0000-000000000000",
+    0, "prog0001-0000-0000-0000-000000000000"
+    );
+    val projectPRE2 = Project(
+    "proj0002-0000-0000-0000-000000000000",
+    "depart02-0000-0000-0000-000000000000", "prog0003-0000-0000-0000-000000000000",
+    "project 2", 3333.3, "02/02/2000", "31/12/2020",
+    "C", "repo0002-0000-0000-0000-000000000000",
+    1, null
+    );
+
     val project = Project(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "12345678-1234-1234-1234-123456789012",
             "aaaaaaaa-aaaa-aaaa-aaaa-aaaaaaaaaaaa", "project 1", -909090.90,
@@ -60,18 +75,23 @@ class ProjectRepositoryTest {
     fun projectGetByIdWorksFine() {
         val result = ProjectRepository().getById(project.id)
         println("$result\n")
-        assertEquals(project, result)
+        assertEquals(project.id, result.id)
     }
 
     @Test
     @DisplayName("Find all")
     @Order(3)
     fun projectFindAllWorksFine() {
-        val expectedList = listOf(project)
+        val expectedList = ArrayList<String>()
+        expectedList.add(projectPRE1.id)
+        expectedList.add(projectPRE2.id)
+        expectedList.add(project.id)
         println(expectedList)
         val actualList = ProjectRepository().findAll()
         println("$actualList\n")
-        assertEquals(expectedList, actualList)
+        val res = ArrayList<String>()
+        actualList.forEach { x -> res.add(x.id) }
+        assertEquals(expectedList, res)
     }
 
     @Test
