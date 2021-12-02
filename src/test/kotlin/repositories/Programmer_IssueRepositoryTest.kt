@@ -20,7 +20,6 @@ class Programmer_IssueRepositoryTest {
             "cccccccc-cccc-cccc-cccc-cccccccccccc",
             "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"
     )
-    val expectedList = listOf(pi1)
 
     companion object {
         @JvmStatic
@@ -57,35 +56,47 @@ class Programmer_IssueRepositoryTest {
     fun piGetByIdWorksFine() {
         val result = Programmer_IssueRepository().getById(pi1.id)
         println("$result\n")
-        assertEquals(pi1, result)
+        assertEquals(pi1.id, result.id)
     }
 
     @Test
     @DisplayName("Get by Programmer id")
     @Order(3)
     fun piGetByProgrammerIdWorksFine() {
+        val expectedList = ArrayList<String>()
+        expectedList.add(pi1.programmer_id)
         val result = Programmer_IssueRepository().getByProgrammerId(pi1.programmer_id)
+        val res = ArrayList<String>()
+        result.forEach { x -> res.add(x.programmer_id) }
         println("$result\n")
-        assertEquals(expectedList, result)
+        assertEquals(expectedList, res)
     }
 
     @Test
     @DisplayName("Get by Issue id")
     @Order(4)
     fun piGetByIssueIdWorksFine() {
+        val expectedList = ArrayList<String>()
+        expectedList.add(pi1.issue_id)
         val result = Programmer_IssueRepository().getByIssueId(pi1.issue_id)
+        val res = ArrayList<String>()
+        result.forEach { x -> res.add(x.issue_id) }
         println("$result\n")
-        assertEquals(expectedList, result)
+        assertEquals(expectedList, res)
     }
 
     @Test
     @DisplayName("Find all")
     @Order(5)
     fun piFindAllWorksFine() {
+        val expectedList = ArrayList<String>()
+        expectedList.add(pi1.id)
         println(expectedList)
         val actualList = Programmer_IssueRepository().findAll()
+        val res = ArrayList<String>()
+        actualList.forEach { x -> res.add(x.id) }
         println("$actualList\n")
-        assertEquals(expectedList, actualList)
+        assertEquals(expectedList, res)
     }
 
     @Test

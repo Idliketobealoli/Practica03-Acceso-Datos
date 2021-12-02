@@ -10,6 +10,17 @@ import kotlin.test.assertNotEquals
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @DisplayName("Repository Repository")
 class RepositoryRepositoryTest {
+    val repoPRE1 = Repository(
+    "repo0001-0000-0000-0000-000000000000", "repo 1", "22/02/6006",
+    "proj0001-0000-0000-0000-000000000000", "comm0001-0000-0000-0000-000000000000",
+    "issu0001-0000-0000-0000-000000000000"
+    );
+    val repoPRE2 = Repository(
+    "repo0002-0000-0000-0000-000000000000", "repo 2", "22/02/6006",
+    "proj0002-0000-0000-0000-000000000000", "comm0002-0000-0000-0000-000000000000",
+    "issu0002-0000-0000-0000-000000000000"
+    );
+
     val repo = Repository(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "repo 1", "26/05/2002",
             "12345678-1234-1234-1234-123456789012",

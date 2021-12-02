@@ -20,7 +20,6 @@ class Project_ProgrammerRepositoryTest {
             "cccccccc-cccc-cccc-cccc-cccccccccccc",
             "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb"
     )
-    val expectedList = listOf(pp1)
 
     companion object {
         @JvmStatic
@@ -57,35 +56,47 @@ class Project_ProgrammerRepositoryTest {
     fun ppGetByIdWorksFine() {
         val result = Project_ProgrammerRepository().getById(pp1.id)
         println("$result\n")
-        assertEquals(pp1, result)
+        assertEquals(pp1.id, result.id)
     }
 
     @Test
     @DisplayName("Get by Programmer id")
     @Order(3)
     fun ppGetByProgrammerIdWorksFine() {
+        val expectedList = ArrayList<String>()
+        expectedList.add(pp1.programmer_id)
         val result = Project_ProgrammerRepository().getByProgrammerId(pp1.programmer_id)
+        val res = ArrayList<String>()
+        result.forEach { x -> res.add(x.programmer_id) }
         println("$result\n")
-        assertEquals(expectedList, result)
+        assertEquals(expectedList, res)
     }
 
     @Test
     @DisplayName("Get by Project id")
     @Order(4)
     fun ppGetByProjectIdWorksFine() {
+        val expectedList = ArrayList<String>()
+        expectedList.add(pp1.project_id)
         val result = Project_ProgrammerRepository().getByProjectId(pp1.project_id)
+        val res = ArrayList<String>()
+        result.forEach { x -> res.add(x.project_id) }
         println("$result\n")
-        assertEquals(expectedList, result)
+        assertEquals(expectedList, res)
     }
 
     @Test
     @DisplayName("Find all")
     @Order(5)
     fun ppFindAllWorksFine() {
+        val expectedList = ArrayList<String>()
+        expectedList.add(pp1.id)
         println(expectedList)
         val actualList = Project_ProgrammerRepository().findAll()
+        val res = ArrayList<String>()
+        actualList.forEach { x -> res.add(x.id) }
         println("$actualList\n")
-        assertEquals(expectedList, actualList)
+        assertEquals(expectedList, res)
     }
 
     @Test

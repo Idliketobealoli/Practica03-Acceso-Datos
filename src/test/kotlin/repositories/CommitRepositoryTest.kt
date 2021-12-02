@@ -10,6 +10,19 @@ import kotlin.test.assertNotEquals
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @DisplayName("Commit Repository")
 class CommitRepositoryTest {
+    val commitPRE1 = Commit(
+    "comm0001-0000-0000-0000-000000000000", "commit 1", null, "11/11/2001",
+    "repo0001-0000-0000-0000-000000000000", "proj0001-0000-0000-0000-000000000000",
+    "prog0001-0000-0000-0000-000000000000", "issu0001-0000-0000-0000-000000000000"
+    )
+    val commitPRE2 = Commit(
+    "comm0002-0000-0000-0000-000000000000", "commit 2", "adsfasfa", "11/11/2001",
+    "repo0002-0000-0000-0000-000000000000", "proj0002-0000-0000-0000-000000000000",
+    "prog0001-0000-0000-0000-000000000000", "issu0002-0000-0000-0000-000000000000"
+    );
+
+
+
     val com = Commit(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "Commit 1",
             null,
@@ -62,19 +75,25 @@ class CommitRepositoryTest {
     @Order(2)
     fun departmentGetByIdWorksFine() {
         val result = CommitRepository().getById(com.id)
-        println("$result\n")
-        assertEquals(com, result)
+        println(com.id)
+        println("${result.id}\n")
+        assertEquals(com.id, result.id)
     }
 
     @Test
     @DisplayName("Find all")
     @Order(3)
     fun issueFindAllWorksFine() {
-        val expectedList = listOf(com)
+        val expectedList = ArrayList<String>()
+        expectedList.add(commitPRE1.id)
+        expectedList.add(commitPRE2.id)
+        expectedList.add(com.id)
         println(expectedList)
         val actualList = CommitRepository().findAll()
         println("$actualList\n")
-        assertEquals(expectedList, actualList)
+        val res = ArrayList<String>()
+        actualList.forEach { x -> res.add(x.id) }
+        assertEquals(expectedList, res)
     }
 
     @Test

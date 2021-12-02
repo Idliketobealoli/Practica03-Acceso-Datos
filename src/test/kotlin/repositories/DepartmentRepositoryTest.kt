@@ -10,6 +10,12 @@ import kotlin.test.assertNotEquals
 @TestMethodOrder(MethodOrderer.OrderAnnotation::class)
 @DisplayName("Department Repository")
 class DepartmentRepositoryTest {
+    val depPRE = Department(
+    "depart02-0000-0000-0000-000000000000", "dep3", "prog0002-0000-0000-0000-000000000000", 11.0,
+    null, null,0.0, ""
+    );
+
+
     val dep = Department(
             "12341234-aaaa-aaaa-AB12-1234567890zn", "Department 1",
             "12345678-1234-1234-1234-123456789012",
@@ -62,18 +68,22 @@ class DepartmentRepositoryTest {
     fun departmentGetByIdWorksFine() {
         val result = DepartmentRepository().getById(dep.id)
         println("$result\n")
-        assertEquals(dep, result)
+        assertEquals(dep.id, result.id)
     }
 
     @Test
     @DisplayName("Find all")
     @Order(3)
     fun issueFindAllWorksFine() {
-        val expectedList = listOf(dep)
+        val expectedList = ArrayList<String>()
+        expectedList.add(depPRE.id)
+        expectedList.add(dep.id)
         println(expectedList)
         val actualList = DepartmentRepository().findAll()
         println("$actualList\n")
-        assertEquals(expectedList, actualList)
+        val res = ArrayList<String>()
+        actualList.forEach { x -> res.add(x.id) }
+        assertEquals(expectedList, res)
     }
 
     @Test

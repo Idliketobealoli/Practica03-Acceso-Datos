@@ -1,12 +1,8 @@
-import controllers.CommitController
-import controllers.DepartmentController
-import controllers.ProjectController
+import controllers.*
 import db.DBController
-import dto.CommitDTO
-import dto.DepartmentDTO
-import dto.ProgrammerDTO
-import dto.ProjectDTO
+import dto.*
 import model.*
+import services.ProgrammerService
 import utils.Utils
 import java.io.File
 import kotlin.system.exitProcess
@@ -91,6 +87,57 @@ object Empresa {
             "depart02-0000-0000-0000-000000000000", "dep3", boss.id, 11.0,
             null, null,0.0, "",
     )
+    /*
+    val boss = Programmer(
+            "prog0001-0000-0000-0000-000000000000", "boss1", "06/05/2002",
+            "depart01-0000-0000-0000-000000000000",
+            null, null, null,
+            "JAVA,KOTLIN,CSHARP", -2.22, 1,0,0
+    )
+    val programmer1 = Programmer (
+            "program1-0000-0000-0000-000000000000", "programmer1", "26/05/2002",
+            "depart01-0000-0000-0000-000000000000",
+            "proj0001-0000-0000-0000-000000000000,proj0002-0000-0000-0000-000000000000",
+            null,
+            null,
+            "KOTLIN,CSHARP", -2.22, 0,0,1
+            )
+    val manager = Programmer (
+            "manager1-0000-0000-0000-000000000000", "manager01", "26/05/2002",
+            "depart01-0000-0000-0000-000000000000",
+            "proj0001-0000-0000-0000-000000000000,proj0002-0000-0000-0000-000000000000",
+            null,
+            null,
+            "JAVA,CSHARP", -2.22, 0,1,0
+            )
+    val proj1 = Project (
+            "proj0001-0000-0000-0000-000000000000",
+            "depart01-0000-0000-0000-000000000000",
+            "manager1-0000-0000-0000-000000000000",
+            "project 1",3333.3,"02/02/2000",null,
+            "JAVA,C","repo0001-0000-0000-0000-000000000000",
+            0,"program1-0000-0000-0000-000000000000"
+            )
+    val proj2 = Project (
+            "proj0002-0000-0000-0000-000000000000",
+            "depart02-0000-0000-0000-000000000000",
+            "manager2-0000-0000-0000-000000000000",
+            "project 2", 33.3, "05/11/2005", "06/12/2012",
+            "JAVA,C", "repo0002-0000-0000-0000-000000000000",
+            1, "program2-0000-0000-0000-000000000000"
+            )
+
+
+    val departDTO = DepartmentDTO (
+            "depart01-0000-0000-0000-00000000", "Department",
+            boss,6969.0, listOf(proj1),null,
+            0.0, listOf(programmer1)
+            )
+    val programmerDTO = ProgrammerDTO (
+
+            )
+
+     */
 
     fun checkService() {
         try {
@@ -104,6 +151,29 @@ object Empresa {
             exitProcess(1)
         }
     }
+
+    /*
+    fun insertCosas(s: String) {
+        println(DepartmentController.insertDepartment(departDTO,s))
+    }
+
+    fun findAllCosas(s: String) {
+
+    }
+
+    fun getCosasById(s: String) {
+
+    }
+
+    fun updateCosas(s: String) {
+
+    }
+
+    fun deleteCosas(s: String) {
+
+    }
+
+     */
 
     init {
         val path = "${System.getProperty("user.dir")}${ File.separator}sql${ File.separator}database.sql"
@@ -183,23 +253,34 @@ object Empresa {
         println("\n\n\n")
     }
 
-    //TODO: CASAR COSAS
     fun issues(x: String) {
+        val issuDTO1 = IssueDTO(
+                "issu0004-0000-0000-0000-000000000000", manager, "Issue DTO 1",
+                "https://www.youtube.com/watch?v=hjGZLnja1o8&ab_channel=TheNightcoreWitcher",
+                "26/05/2002", null, proj1, repo1, false
+        )
+        val issuDTO2 = IssueDTO(
+                "issu0004-0000-0000-0000-000000000000", manager, "Issue DTO modified",
+                null,
+                "26/06/2002", null, proj1, repo1, true
+        )
+
         println("INSERT Issues:")
-        println(CommitController.insertCommit(commDTO1,x))
+        println(IssueController.insertIssue(issuDTO1,x))
         println("\n\nFIND ALL Issues:")
-        println(CommitController.findAllCommits(x))
-        println("\n\nGET Issue with ID = ${commDTO1.id}:")
-        println(CommitController.getCommitById(commDTO1.id,x))
-        println("\n\nUPDATE Issue with ID = ${commDTO2.id}:")
-        println(CommitController.updateCommit(commDTO2, x))
-        println("\n\nDELETE Issue with ID = ${commDTO2.id}:")
-        println(CommitController.deleteCommit(commDTO2,x))
+        println(IssueController.findAllIssues(x))
+        println("\n\nGET Issue with ID = ${issuDTO1.id}:")
+        println(IssueController.getIssueById(issuDTO1.id,x))
+        println("\n\nUPDATE Issue with ID = ${issuDTO2.id}:")
+        println(IssueController.updateIssue(issuDTO2, x))
+        println("\n\nDELETE Issue with ID = ${issuDTO2.id}:")
+        println(IssueController.deleteIssue(issuDTO2,x))
         println("\n\n\n")
     }
 
     //TODO: CASAR COSAS
     fun programmers(x: String) {
+        /*
         println("INSERT Issues:")
         println(CommitController.insertCommit(commDTO1,x))
         println("\n\nFIND ALL Issues:")
@@ -211,10 +292,13 @@ object Empresa {
         println("\n\nDELETE Issue with ID = ${commDTO2.id}:")
         println(CommitController.deleteCommit(commDTO2,x))
         println("\n\n\n")
+
+         */
     }
 
     //TODO: CASAR COSAS
     fun repositories(x: String) {
+        /*
         println("INSERT Issues:")
         println(CommitController.insertCommit(commDTO1,x))
         println("\n\nFIND ALL Issues:")
@@ -226,5 +310,7 @@ object Empresa {
         println("\n\nDELETE Issue with ID = ${commDTO2.id}:")
         println(CommitController.deleteCommit(commDTO2,x))
         println("\n\n\n")
+
+         */
     }
 }

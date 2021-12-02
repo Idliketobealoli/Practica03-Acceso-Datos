@@ -22,6 +22,12 @@ object IssueController {
         return ""
     }
 
+    /**
+     * Este metodo coge todas las issues y las muestra como json
+     * @author Daniel Rodriguez
+     * @return String json
+     * @see IssueService.getAllIssues
+     */
     private fun findAllIssueJSON() : String {
         return GsonBuilder().setPrettyPrinting().create()
                 .toJson(service.getAllIssues()) ?:
