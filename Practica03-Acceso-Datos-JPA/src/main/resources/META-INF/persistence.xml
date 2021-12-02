@@ -5,15 +5,15 @@
              version="2.2">
     <persistence-unit name="default">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>dto.CommitDTO</class>
-        <class>dto.DepartmentDTO</class>
-        <class>dto.IssueDTO</class>
-        <class>dto.ProgrammerDTO</class>
-        <class>dto.ProjectDTO</class>
-        <class>dto.RepositoryDTO</class>
+        <class>model.Commite</class>
+        <class>model.Department</class>
+        <class>model.Issue</class>
+        <class>model.Programmer</class>
+        <class>model.Project</class>
+        <class>model.Repository</class>
 
         <properties>
-            <property name="dialect" value="org.hibernate.dialect.SQLiteDialect" />
+            <property name="hibernate.dialect" value="com.enigmabridge.hibernate.dialect.SQLiteDialect" />
             <property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" />
             <property name="javax.persistence.jdbc.url" value="jdbc:sqlite::memory:" />
             <property name="javax.persistence.jdbc.user" value="" />
