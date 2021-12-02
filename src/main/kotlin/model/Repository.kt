@@ -3,6 +3,10 @@ package model
 
 import javax.xml.bind.annotation.*
 
+/**
+ * Clase POKO Repository cuyos campos irán a la base de datos.
+ * @author Daniel Rodríguez
+ */
 @XmlRootElement(name = "repository")
 @XmlAccessorType(XmlAccessType.FIELD)
 class Repository () {

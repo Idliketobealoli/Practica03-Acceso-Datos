@@ -6,6 +6,10 @@ import model.Programmer
 import model.Project
 import javax.xml.bind.annotation.*
 
+/**
+ * Data transfer Object de Department. Preparado para ser sacado en formato XML y JSON.
+ * @author Daniel Rodríguez
+ */
 @XmlRootElement(name = "department")
 @XmlAccessorType(XmlAccessType.FIELD)
 class DepartmentDTO () {
@@ -45,10 +49,21 @@ class DepartmentDTO () {
         this.bossHistory = bossHistory
     }
 
+    /**
+     * De un string JSON lo convierte en un DepartmentDTO
+     * @author Daniel Rodríguez
+     * @param json String
+     * @return DepartmentDTO
+     */
     fun fromJSON(json : String) : DepartmentDTO? {
         return Gson().fromJson(json, DepartmentDTO::class.java)
     }
 
+    /**
+     * De un DepartmentDTO lo convierte en un string JSON
+     * @author Daniel Rodríguez
+     * @return String
+     */
     fun toJSON() : String {
         return GsonBuilder().setPrettyPrinting().create().toJson(this)
     }

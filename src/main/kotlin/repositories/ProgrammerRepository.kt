@@ -6,7 +6,17 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
+/**
+ * Clase encargada de hacer las operaciones CRUD de Repository.
+ * @author Jaime Salcedo
+ * @see IRepository
+ */
 class ProgrammerRepository : IRepository<Programmer, String> {
+    /**
+     * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos Programmer
+     * @author Jaime Salcedo
+     * @return List<Programmer>
+     */
     override fun findAll(): List<Programmer> {
         val query = "select * from Programmer"
         val programmers = ArrayList<Programmer>()
@@ -22,6 +32,12 @@ class ProgrammerRepository : IRepository<Programmer, String> {
         return programmers
     }
 
+    /**
+     * Encuentra el programmer cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Programmer, si lo encuentra.
+     * @author Jaime Salcedo
+     * @param id String
+     * @return Programmer
+     */
     override fun getById(id: String): Programmer {
         val query = "select * from Programmer where id = ?"
         DBController.open()
@@ -35,6 +51,13 @@ class ProgrammerRepository : IRepository<Programmer, String> {
         return programmmerResult ?: throw SQLException("Error: Programmer with id $id does not exist.")
     }
 
+    /**
+     * Crea un objeto programmer a partir del resultSet devuelto por el DBController
+     * @author Jaime Salcedo
+     * @param result ResultSet
+     * @return Programmer
+     * @see DBController
+     */
     private fun getProgrammerFromResultSet(result: ResultSet): Programmer {
         return Programmer(
                 result.getString("id"),
@@ -52,6 +75,13 @@ class ProgrammerRepository : IRepository<Programmer, String> {
         )
     }
 
+    /**
+     * Inserta un programmer en la base de datos, donde cada atributo del programmer va a un campo de la tabla programmer,
+     * devolviendo dicho programmer si lo consigue.
+     * @author Jaime Salcedo
+     * @param programmer Programmer
+     * @return Programmer
+     */
     override fun insert(programmer: Programmer) : Programmer {
         val query = "insert into Programmer values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         DBController.open()
@@ -68,6 +98,12 @@ class ProgrammerRepository : IRepository<Programmer, String> {
         else throw SQLException("Error: could not insert Programmer into DB")
     }
 
+    /**
+     * Modifica un programmer, si existe, devolviendo dicho programmer si lo consigue.
+     * @author Jaime Salcedo
+     * @param programmer Programmer
+     * @return Programmer
+     */
     override fun update(programmer: Programmer) : Programmer {
         val query = ("update Programmer set name = ?, department_id = ?, activeProjects_ids = ?, " +
                 "commits_ids = ?, issues_ids = ?, technologies = ?, salary = ?, isDepBoss = ?, " +
@@ -86,6 +122,12 @@ class ProgrammerRepository : IRepository<Programmer, String> {
         else throw SQLException("Error: could not update Programmer with id ${programmer.id}")
     }
 
+    /**
+     * Borra un programmer, si existe, devolviendo dicho programmer si lo consigue.
+     * @author Jaime Salcedo
+     * @param programmer Programmer
+     * @return Programmer
+     */
     override fun delete(programmer: Programmer) : Programmer {
         val query = "delete from Programmer where id = ?"
         DBController.open()

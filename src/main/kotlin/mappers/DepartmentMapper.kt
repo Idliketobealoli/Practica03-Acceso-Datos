@@ -7,7 +7,19 @@ import repositories.ProgrammerRepository
 import utils.Utils
 import java.util.ArrayList
 
+/**
+ * Clase encargada de mapear un objeto Department pasandolo a DTO o a la inversa.
+ * @author Daniel Rodríguez
+ * @see BaseMapper
+ */
 class DepartmentMapper : BaseMapper<Department, DepartmentDTO>() {
+
+    /**
+     * Coge un DepartmentDTO y lo convierte en un Department
+     * @author Daniel Rodríguez
+     * @param item DepartmentDTO
+     * @return Department
+     */
     override fun fromDTO(item: DepartmentDTO): Department {
         Utils().makeSureTheseAreIds(item.id, item.boss.id)
         Utils().makeSureThisGuyIsDepBoss(item.boss);
@@ -37,6 +49,12 @@ class DepartmentMapper : BaseMapper<Department, DepartmentDTO>() {
         )
     }
 
+    /**
+     * Coge un Department y lo convierte en DepartmenttDTO
+     * @author Daniel Rodríguez
+     * @param item Department
+     * @return DepartmentDTO
+     */
     override fun toDTO(item: Department): DepartmentDTO {
         Utils().makeSureTheseAreIds(item.id, item.boss_id)
         val boss = ProgrammerRepository().getById(item.boss_id)

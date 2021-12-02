@@ -7,6 +7,10 @@ import model.Project
 import model.Repository
 import javax.xml.bind.annotation.*
 
+/**
+ * Data transfer Object de Issue. Preparado para ser sacado en formato XML y JSON.
+ * @author Daniel Rodríguez
+ */
 @XmlRootElement(name = "issue")
 @XmlAccessorType(XmlAccessType.FIELD)
 class IssueDTO () {
@@ -48,10 +52,21 @@ class IssueDTO () {
         this.isFinished = isFinished
     }
 
+    /**
+     * De un string JSON lo convierte en un IssueDTO
+     * @author Daniel Rodríguez
+     * @param json String
+     * @return IssueDTO
+     */
     fun fromJSON(json : String) : IssueDTO? {
         return Gson().fromJson(json, IssueDTO::class.java)
     }
 
+    /**
+     * De un IssueDTO lo convierte en un string JSON
+     * @author Daniel Rodríguez
+     * @return String
+     */
     fun toJSON() : String {
         return GsonBuilder().setPrettyPrinting().create().toJson(this)
     }

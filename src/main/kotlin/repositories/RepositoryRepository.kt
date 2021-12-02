@@ -5,7 +5,17 @@ import model.Repository
 import java.sql.ResultSet
 import java.sql.SQLException
 
+/**
+ * Clase encargada de hacer las operaciones CRUD de Repository.
+ * @author Jaime Salcedo
+ * @see IRepository
+ */
 class RepositoryRepository : IRepository<Repository, String> {
+    /**
+     * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos Repository
+     * @author Jaime Salcedo
+     * @return List<Repository>
+     */
     override fun findAll(): List<Repository> {
         val query = "select * from Repository"
         val repositories = ArrayList<Repository>()
@@ -21,6 +31,12 @@ class RepositoryRepository : IRepository<Repository, String> {
         return repositories
     }
 
+    /**
+     * Encuentra el repository cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Repository, si lo encuentra.
+     * @author Jaime Salcedo
+     * @param id String
+     * @return Repository
+     */
     override fun getById(id: String): Repository {
         val query = "select * from Repository where id = ?"
         DBController.open()
@@ -34,6 +50,13 @@ class RepositoryRepository : IRepository<Repository, String> {
         return repositoryResult ?: throw SQLException("Error: Repository with id $id does not exist.")
     }
 
+    /**
+     * Crea un objeto repository a partir del resultSet devuelto por el DBController
+     * @author Jaime Salcedo
+     * @param result ResultSet
+     * @return Repository
+     * @see DBController
+     */
     private fun getRepositoryFromResultSet(result: ResultSet): Repository {
         return Repository(
                 result.getString("id"),
@@ -45,6 +68,13 @@ class RepositoryRepository : IRepository<Repository, String> {
         )
     }
 
+    /**
+     * Inserta un repository en la base de datos, donde cada atributo del repository va a un campo de la tabla repository,
+     * devolviendo dicho repository si lo consigue.
+     * @author Jaime Salcedo
+     * @param repository Repository
+     * @return Repository
+     */
     override fun insert(repository: Repository): Repository {
         val query = "insert into Repository values (?, ?, ?, ?, ?, ?)"
         DBController.open()
@@ -60,6 +90,12 @@ class RepositoryRepository : IRepository<Repository, String> {
         else throw SQLException("Error: could not insert Repository into DB")
     }
 
+    /**
+     * Modifica un repository, si existe, devolviendo dicho repository si lo consigue.
+     * @author Jaime Salcedo
+     * @param repository Repository
+     * @return Repository
+     */
     override fun update(repository: Repository): Repository {
         val query = ("update Repository set name = ?, creationDate = ?, project_id = ?, " +
                 "commits_ids = ?, issues_ids = ? where id = ?")
@@ -75,6 +111,12 @@ class RepositoryRepository : IRepository<Repository, String> {
         else throw SQLException("Error: could not update Repository with id ${repository.id}")
     }
 
+    /**
+     * Borra un repository, si existe, devolviendo dicho repository si lo consigue.
+     * @author Jaime Salcedo
+     * @param repository Repository
+     * @return Repository
+     */
     override fun delete(repository: Repository): Repository {
         val query = "delete from Repository where id = ?"
         DBController.open()
