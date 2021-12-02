@@ -5,6 +5,7 @@ import repositories.IRepository
 /**
  * Clase abstracta que le da a las clases que la extiendan los metodos que llaman a los metodos del
  * repository correspondiente para hacer las operaciones crud
+ * @author Daniel Rodriguez
  */
 abstract class BaseService <T, ID, R : IRepository<T, ID>>(rep : R) {
     protected val repository = rep
