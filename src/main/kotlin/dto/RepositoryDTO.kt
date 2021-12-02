@@ -7,6 +7,10 @@ import model.Issue
 import model.Project
 import javax.xml.bind.annotation.*
 
+/**
+ * Data transfer Object de Repository. Preparado para ser sacado en formato XML y JSON.
+ * @author Jaime Salcedo
+ */
 @XmlRootElement(name = "repository")
 @XmlAccessorType(XmlAccessType.FIELD)
 class RepositoryDTO () {
@@ -38,10 +42,21 @@ class RepositoryDTO () {
         this.issues = issues
     }
 
+    /**
+     * De un string JSON lo convierte en un RepositoryDTO
+     * @author Jaime Salcedo
+     * @param json String
+     * @return RepositoryDTO
+     */
     fun fromJSON(json : String) : RepositoryDTO? {
         return Gson().fromJson(json, RepositoryDTO::class.java)
     }
 
+    /**
+     * De un RepositoryDTO lo convierte en un string JSON
+     * @author Jaime Salcedo
+     * @return String
+     */
     fun toJSON() : String {
         return GsonBuilder().setPrettyPrinting().create().toJson(this)
     }

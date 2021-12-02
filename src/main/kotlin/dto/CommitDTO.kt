@@ -13,6 +13,7 @@ import javax.xml.bind.annotation.XmlRootElement
 
 /**
  * Data transfer Object de Commit. Preparado para ser sacado en formato XML y JSON.
+ * @author Daniel Rodríguez
  */
 @XmlRootElement(name = "commit")
 @XmlAccessorType(XmlAccessType.FIELD)
@@ -52,6 +53,9 @@ class CommitDTO () {
 
     /**
      * De un string JSON lo convierte en un CommitDTO
+     * @author Daniel Rodríguez
+     * @param json String
+     * @return CommitDTO
      */
     fun fromJSON(json : String) : CommitDTO? {
         return Gson().fromJson(json, CommitDTO::class.java)
@@ -59,6 +63,8 @@ class CommitDTO () {
 
     /**
      * De un CommitDTO lo convierte en un string JSON
+     * @author Daniel Rodríguez
+     * @return String
      */
     fun toJSON() : String {
         return GsonBuilder().setPrettyPrinting().create().toJson(this)

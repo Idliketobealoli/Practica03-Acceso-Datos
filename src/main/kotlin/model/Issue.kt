@@ -2,6 +2,10 @@ package model
 
 import javax.xml.bind.annotation.*
 
+/**
+ * Clase POKO Issue cuyos campos irán a la base de datos.
+ * @author Jaime Salcedo
+ */
 @XmlRootElement(name = "issue")
 @XmlAccessorType(XmlAccessType.FIELD)
 class Issue () {

@@ -11,6 +11,10 @@ import model.Issue
 import model.Project
 import javax.xml.bind.annotation.*
 
+/**
+ * Data transfer Object de Programmer. Preparado para ser sacado en formato XML y JSON.
+ * @author Jaime Salcedo
+ */
 @XmlRootElement(name = "programmer")
 @XmlAccessorType(XmlAccessType.FIELD)
 class ProgrammerDTO () {
@@ -70,10 +74,21 @@ class ProgrammerDTO () {
         this.isActive = isActive
     }
 
+    /**
+     * De un string JSON lo convierte en un ProgrammerDTO
+     * @author Jaime Salcedo
+     * @param json String
+     * @return ProgrammerDTO
+     */
     fun fromJSON(json: String) : ProgrammerDTO? {
         return Gson().fromJson(json, ProgrammerDTO::class.java)
     }
 
+    /**
+     * De un ProgrammerDTO lo convierte en un string JSON
+     * @author Jaime Salcedo
+     * @return String
+     */
     fun toJSON() : String {
         val gson = GsonBuilder().setPrettyPrinting().create()
         return gson.toJson(this)

@@ -7,7 +7,19 @@ import repositories.ProjectRepository
 import repositories.RepositoryRepository
 import utils.Utils
 
+/**
+ * Clase encargada de mapear un objeto Issue pasandolo a DTO o a la inversa.
+ * @author Daniel Rodríguez
+ * @see BaseMapper
+ */
 class IssueMapper : BaseMapper<Issue, IssueDTO>() {
+
+    /**
+     * Coge un IssueDTO y lo convierte en un Issue
+     * @author Daniel Rodríguez
+     * @param item IssueDTO
+     * @return Issue
+     */
     override fun fromDTO(item: IssueDTO): Issue {
         Utils().makeSureTheseAreIds(item.id, item.author.id,
                 item.project.id, item.repository.id)
@@ -21,6 +33,12 @@ class IssueMapper : BaseMapper<Issue, IssueDTO>() {
         )
     }
 
+    /**
+     * Coge un Issue y lo convierte en IssueDTO
+     * @author Daniel Rodríguez
+     * @param item Issue
+     * @return IssueDTO
+     */
     override fun toDTO(item: Issue): IssueDTO {
         Utils().makeSureTheseAreIds(item.id, item.author_id,
                 item.project_id, item.repository_id)

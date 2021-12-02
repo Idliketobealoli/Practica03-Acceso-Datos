@@ -6,7 +6,17 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
+/**
+ * Clase encargada de hacer las operaciones CRUD de Repository.
+ * @author Jaime Salcedo
+ * @see IRepository
+ */
 class IssueRepository  : IRepository<Issue, String> {
+    /**
+     * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos Issue
+     * @author Jaime Salcedo
+     * @return List<Issue>
+     */
     override fun findAll(): List<Issue> {
         val query = "select * from Issue"
         val issues = ArrayList<Issue>()
@@ -22,6 +32,12 @@ class IssueRepository  : IRepository<Issue, String> {
         return issues
     }
 
+    /**
+     * Encuentra el issue cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Issue, si lo encuentra.
+     * @author Jaime Salcedo
+     * @param id String
+     * @return Issue
+     */
     override fun getById(id: String): Issue {
         val query = "select * from Issue where id = ?"
         DBController.open()
@@ -35,6 +51,13 @@ class IssueRepository  : IRepository<Issue, String> {
         return issue ?: throw SQLException("Error: Issue with id $id does not exist.")
     }
 
+    /**
+     * Crea un objeto issue a partir del resultSet devuelto por el DBController
+     * @author Jaime Salcedo
+     * @param result ResultSet
+     * @return Issue
+     * @see DBController
+     */
     private fun getIssueFromResultSet(result: ResultSet): Issue {
         return Issue(
                 result.getString("id"),
@@ -49,6 +72,13 @@ class IssueRepository  : IRepository<Issue, String> {
         )
     }
 
+    /**
+     * Inserta un issue en la base de datos, donde cada atributo del issue va a un campo de la tabla issue,
+     * devolviendo dicho issue si lo consigue.
+     * @author Jaime Salcedo
+     * @param issue Issue
+     * @return Issue
+     */
     override fun insert(issue: Issue) : Issue {
         val query = "insert into Issue values (?, ?, ?, ?, ?, ?, ?, ?, ?)"
         DBController.open()
@@ -64,6 +94,12 @@ class IssueRepository  : IRepository<Issue, String> {
         else throw SQLException("Error: could not insert Issue into DB")
     }
 
+    /**
+     * Modifica un issue, si existe, devolviendo dicho issue si lo consigue.
+     * @author Jaime Salcedo
+     * @param issue Issue
+     * @return Issue
+     */
     override fun update(issue: Issue) : Issue {
         val query = ("update Issue set author_id = ?, title = ?, text = ?, " +
                 "date = ?, programmers_ids = ?, project_id = ?, repository_id = ?, " +
@@ -81,6 +117,12 @@ class IssueRepository  : IRepository<Issue, String> {
         else throw SQLException("Error: could not update Issue with id ${issue.id}")
     }
 
+    /**
+     * Borra un issue, si existe, devolviendo dicho issue si lo consigue.
+     * @author Jaime Salcedo
+     * @param issue Issue
+     * @return Issue
+     */
     override fun delete(issue: Issue) : Issue {
         val query = "delete from Issue where id = ?"
         DBController.open()

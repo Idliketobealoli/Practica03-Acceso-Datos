@@ -6,7 +6,17 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
+/**
+ * Clase encargada de hacer las operaciones CRUD de Repository.
+ * @author Daniel Rodríguez
+ * @see IRepository
+ */
 class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
+    /**
+     * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos Programmer_Issue
+     * @author Daniel Rodríguez
+     * @return List<Programmer_Issue>
+     */
     override fun findAll(): List<Programmer_Issue> {
         val query = "select * from Programmer_Issue"
         val pis = ArrayList<Programmer_Issue>()
@@ -22,6 +32,12 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         return pis
     }
 
+    /**
+     * Encuentra el programmer_issue cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Programmer_Issue, si lo encuentra.
+     * @author Daniel Rodríguez
+     * @param id String
+     * @return Programmer_Issue
+     */
     override fun getById(id: String): Programmer_Issue {
         val query = "select * from Programmer_Issue where id = ?"
         DBController.open()
@@ -35,6 +51,12 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         return pp ?: throw SQLException("Error: Programmer_Issue with id $id does not exist.")
     }
 
+    /**
+     * Encuentra el programmer_issue cuyo programmer_ID casa con el parámetro introducido y lo devuelve como una lista de objetos Programmer_Issue, si lo encuentra.
+     * @author Daniel Rodríguez
+     * @param id String
+     * @return List<Programmer_Issue>
+     */
     fun getByProgrammerId(id: String) : List<Programmer_Issue> {
         val query = "select * from Programmer_Issue where programmer_id = ?"
         val pis = ArrayList<Programmer_Issue>()
@@ -49,6 +71,12 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         return pis
     }
 
+    /**
+     * Encuentra el programmer_issue cuyo issue_ID casa con el parámetro introducido y lo devuelve como una lista de objetos Programmer_Issue, si lo encuentra.
+     * @author Daniel Rodríguez
+     * @param id String
+     * @return List<Programmer_Issue>
+     */
     fun getByIssueId(id: String): List<Programmer_Issue> {
         val query = "select * from Programmer_Issue where issue_id = ?"
         val pis = ArrayList<Programmer_Issue>()
@@ -63,6 +91,13 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         return pis
     }
 
+    /**
+     * Crea un objeto Programmer_Issue a partir del resultSet devuelto por el DBController
+     * @author Daniel Rodríguez
+     * @param result ResultSet
+     * @return Programmer_Issue
+     * @see DBController
+     */
     private fun getProgrammerIssueFromResultSet(result: ResultSet): Programmer_Issue {
         return Programmer_Issue(
                 result.getString("id"),
@@ -71,6 +106,13 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         )
     }
 
+    /**
+     * Inserta un programmer_issue en la base de datos, donde cada atributo del programmer_issue va a un campo de la tabla programmer_issue,
+     * devolviendo dicho programmer_issue si lo consigue.
+     * @author Daniel Rodríguez
+     * @param pi Programmer_Issue
+     * @return Programmer_Issue
+     */
     override fun insert(pi: Programmer_Issue): Programmer_Issue {
         val query = "insert into Programmer_Issue values (?, ?, ?)"
         DBController.open()
@@ -84,6 +126,12 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
 
     }
 
+    /**
+     * Modifica un programmer_issue, si existe, devolviendo dicho programmer_issue si lo consigue.
+     * @author Daniel Rodríguez
+     * @param pi Programmer_Issue
+     * @return Programmer_Issue
+     */
     override fun update(pi: Programmer_Issue): Programmer_Issue {
         val query = ("update Programmer_Issue set programmer_id = ?, issue_id = ? where id = ?")
         DBController.open()
@@ -96,6 +144,12 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
 
     }
 
+    /**
+     * Borra un programmer_issue, si existe, devolviendo dicho programmer_issue si lo consigue.
+     * @author Daniel Rodríguez
+     * @param pi Programmer_Issue
+     * @return Programmer_Issue
+     */
     override fun delete(pi: Programmer_Issue): Programmer_Issue {
         val query = "delete from Programmer_Issue where id = ?"
         DBController.open()
@@ -107,6 +161,13 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         else throw SQLException("Error: could not delete Programmer_Issue with id ${pi.id}")
     }
 
+    /**
+     * Borra los programmer_issue cuyo programmer_id case con el parámetro que le pasemos, si existe,
+     * devolviendo un Int.
+     * @author Daniel Rodríguez
+     * @param  id String
+     * @return Int
+     */
     fun deleteAllWithProgrammerId(id: String) : Int {
         val query = "delete from Programmer_Issue where programmer_id = ?"
         DBController.open()
@@ -118,6 +179,13 @@ class Programmer_IssueRepository : IRepository<Programmer_Issue, String> {
         else throw SQLException("Error: could not delete Programmer_Issue with programmer_id $id")
     }
 
+    /**
+     * Borra los programmer_issue cuyo issue_id case con el parámetro que le pasemos, si existe,
+     * devolviendo un Int.
+     * @author Daniel Rodríguez
+     * @param  id String
+     * @return Int
+     */
     fun deleteAllWithIssueId(id: String) : Int {
         val query = "delete from Programmer_Issue where issue_id = ?"
         DBController.open()

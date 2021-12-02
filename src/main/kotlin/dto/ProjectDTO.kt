@@ -8,6 +8,10 @@ import model.Programmer
 import model.Repository
 import javax.xml.bind.annotation.*
 
+/**
+ * Data transfer Object de Project. Preparado para ser sacado en formato XML y JSON.
+ * @author Jaime Salcedo
+ */
 @XmlRootElement(name = "project")
 @XmlAccessorType(XmlAccessType.FIELD)
 class ProjectDTO () {
@@ -58,10 +62,21 @@ class ProjectDTO () {
         this.programmers = programmers
     }
 
+    /**
+     * De un string JSON lo convierte en un ProjectDTO
+     * @author Jaime Salcedo
+     * @param json String
+     * @return ProjectDTO
+     */
     fun fromJSON(json : String) : ProjectDTO? {
         return Gson().fromJson(json, ProjectDTO::class.java)
     }
 
+    /**
+     * De un ProjectDTO lo convierte en un string JSON
+     * @author Jaime Salcedo
+     * @return String
+     */
     fun toJSON() : String {
         return GsonBuilder().setPrettyPrinting().create().toJson(this)
     }

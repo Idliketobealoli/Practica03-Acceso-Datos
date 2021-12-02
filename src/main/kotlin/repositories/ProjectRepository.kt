@@ -6,7 +6,17 @@ import java.sql.ResultSet
 import java.sql.SQLException
 import java.util.ArrayList
 
+/**
+ * Clase encargada de hacer las operaciones CRUD de Repository.
+ * @author Jaime Salcedo
+ * @see IRepository
+ */
 class ProjectRepository : IRepository<Project, String> {
+    /**
+     * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos Project
+     * @author Jaime Salcedo
+     * @return List<Project>
+     */
     override fun findAll(): List<Project> {
         val query = "select * from Project"
         val projects = ArrayList<Project>()
@@ -21,6 +31,12 @@ class ProjectRepository : IRepository<Project, String> {
         return projects
     }
 
+    /**
+     * Encuentra el project cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Project, si lo encuentra.
+     * @author Jaime Salcedo
+     * @param id String
+     * @return Project
+     */
     override fun getById(id: String): Project {
         val query = "select * from Project where id = ?"
         DBController.open()
@@ -35,6 +51,13 @@ class ProjectRepository : IRepository<Project, String> {
         throw SQLException("Error: Project with id $id does not exist.")
     }
 
+    /**
+     * Crea un objeto project a partir del resultSet devuelto por el DBController
+     * @author Jaime Salcedo
+     * @param result ResultSet
+     * @return Project
+     * @see DBController
+     */
     private fun getProjectFromResultSet(result: ResultSet): Project {
         return Project(
                 result.getString("id"),
@@ -51,6 +74,13 @@ class ProjectRepository : IRepository<Project, String> {
         )
     }
 
+    /**
+     * Inserta un project en la base de datos, donde cada atributo del project va a un campo de la tabla project,
+     * devolviendo dicho project si lo consigue.
+     * @author Jaime Salcedo
+     * @param project Project
+     * @return Project
+     */
     override fun insert(project: Project) : Project {
         val query = "insert into Project values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         DBController.open()
@@ -67,6 +97,12 @@ class ProjectRepository : IRepository<Project, String> {
         else throw SQLException("Error: could not insert Project into DB")
     }
 
+    /**
+     * Modifica un project, si existe, devolviendo dicho project si lo consigue.
+     * @author Jaime Salcedo
+     * @param project Project
+     * @return Project
+     */
     override fun update(project: Project) : Project {
         val query = ("update Project set projectManager_id = ?, name = ?, " +
                 "budget = ?, endDate = ?, technologies = ?, " +
@@ -84,6 +120,12 @@ class ProjectRepository : IRepository<Project, String> {
         else throw SQLException("Error: could not update Project with id ${project.id}")
     }
 
+    /**
+     * Borra un project, si existe, devolviendo dicho project si lo consigue.
+     * @author Jaime Salcedo
+     * @param project Project
+     * @return Project
+     */
     override fun delete(project: Project) : Project {
         val query = "delete from Project where id = ?"
         DBController.open()

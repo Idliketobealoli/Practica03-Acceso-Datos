@@ -8,10 +8,14 @@ import java.util.ArrayList
 
 /**
  * Clase encargada de hacer las operaciones CRUD de Repository.
+ * @author Daniel Rodríguez
+ * @see IRepository
  */
 class CommitRepository : IRepository<Commit, String> {
     /**
      * Encuentra todos los repositories presentes en la BD y los devuelve como una lista de objetos commit
+     * @author Daniel Rodríguez
+     * @return List<Commit>
      */
     override fun findAll(): List<Commit> {
         val query = "select * from Commite"
@@ -30,6 +34,9 @@ class CommitRepository : IRepository<Commit, String> {
 
     /**
      * Encuentra el commit cuyo ID casa con el parámetro introducido y lo devuelve como un objeto Commit, si lo encuentra.
+     * @author Daniel Rodríguez
+     * @param id String
+     * @return Commit
      */
     override fun getById(id: String): Commit {
         val query = "select * from Commite where id = ?"
@@ -46,6 +53,9 @@ class CommitRepository : IRepository<Commit, String> {
 
     /**
      * Crea un objeto commit a partir del resultSet devuelto por el DBController
+     * @author Daniel Rodríguez
+     * @param result ResultSet
+     * @return Commit
      * @see DBController
      */
     private fun getCommitFromResultSet(result: ResultSet): Commit {
@@ -64,6 +74,9 @@ class CommitRepository : IRepository<Commit, String> {
     /**
      * Inserta un commit en la base de datos, donde cada atributo del commit va a un campo de la tabla commit,
      * devolviendo dicho commit si lo consigue.
+     * @author Daniel Rodríguez
+     * @param commit Commit
+     * @return Commit
      */
     override fun insert(commit: Commit) : Commit {
         val query = "insert into Commite values (?, ?, ?, ?, ?, ?, ?, ?)"
@@ -82,6 +95,9 @@ class CommitRepository : IRepository<Commit, String> {
 
     /**
      * Modifica un commit, si existe, devolviendo dicho commit si lo consigue.
+     * @author Daniel Rodríguez
+     * @param commit Commit
+     * @return Commit
      */
     override fun update(commit: Commit) : Commit {
         val query = ("update Commite set title = ?, text = ?, date = ?, " +
@@ -102,6 +118,9 @@ class CommitRepository : IRepository<Commit, String> {
 
     /**
      * Borra un commit, si existe, devolviendo dicho commit si lo consigue.
+     * @author Daniel Rodríguez
+     * @param commit Commit
+     * @return Commit
      */
     override fun delete(commit: Commit) : Commit {
         val query = "delete from Commite where id = ?"

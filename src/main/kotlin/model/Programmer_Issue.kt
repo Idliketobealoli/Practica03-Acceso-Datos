@@ -5,6 +5,10 @@ import javax.xml.bind.annotation.XmlAccessorType
 import javax.xml.bind.annotation.XmlAttribute
 import javax.xml.bind.annotation.XmlRootElement
 
+/**
+ * Clase POKO Programmer_Issue cuyos campos irán a la base de datos.
+ * @author Daniel Rodríguez
+ */
 @XmlRootElement(name = "programmer_issue")
 @XmlAccessorType(XmlAccessType.FIELD)
 class Programmer_Issue () {
