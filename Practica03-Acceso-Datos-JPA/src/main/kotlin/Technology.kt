@@ -1,0 +1,3 @@
+enum class Technology {
+    JAVA, KOTLIN, PHP, PYTHON, CSHARP, JAVASCRIPT, TYPESCRIPT, C
+}

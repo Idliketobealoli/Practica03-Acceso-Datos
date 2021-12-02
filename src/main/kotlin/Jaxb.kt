@@ -19,7 +19,7 @@ object Jaxb {
             fileDirectory.mkdirs()
         }
     }
-    
+
     fun departmentToXML(x: DepartmentDTO) {
         val jaxbContext = JAXBContext.newInstance(DepartmentDTO::class.java)
         printXML(jaxbContext, x)
