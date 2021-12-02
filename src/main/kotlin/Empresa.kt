@@ -2,14 +2,13 @@ import controllers.*
 import db.DBController
 import dto.*
 import model.*
-import services.ProgrammerService
-import utils.Utils
 import java.io.File
 import kotlin.system.exitProcess
 
 /**
  * Inicializa la base de datos para checkear que están correctas las cosas.
  * Llama a los controladores correspondientes para ejecutar las operaciones CRUD correspondientes.
+ * @author Daniel Rodriguez
  */
 object Empresa {
     val prog = Programmer(
@@ -92,6 +91,10 @@ object Empresa {
             null, null,0.0, "",
     )
 
+    /**
+     * Se asegura de que la conexion con la base de datos es correcta.
+     * @author Daniel Rodriguez
+     */
     fun checkService() {
         try {
             DBController.open()
@@ -105,6 +108,10 @@ object Empresa {
         }
     }
 
+    /**
+     * inicializa las propiedades iniciales del controlador de la base de datos.
+     * @author Daniel Rodriguez
+     */
     init {
         val path = "${System.getProperty("user.dir")}${ File.separator}sql${ File.separator}database.sql"
         DBController.open()
@@ -112,6 +119,10 @@ object Empresa {
         DBController.close()
     }
 
+    /**
+     * Hace un insert - find all - get by id - update - delete a Department
+     * @author Daniel Rodriguez
+     */
     fun departments(x: String) {
         val depart = DepartmentDTO(
                 "depart01-0000-0000-0000-000000000000", "dep1", boss, 11111.0,
@@ -135,6 +146,10 @@ object Empresa {
         println("\n\n\n")
     }
 
+    /**
+     * Hace un insert - find all - get by id - update - delete a Project
+     * @author Daniel Rodriguez
+     */
     fun projects(x: String) {
         val projDto1 = ProjectDTO("projDTO1-0000-0000-0000-000000000000", depart3, manager,
                 "project uwu", 64563.3, "01/01/2001", null,
@@ -160,6 +175,10 @@ object Empresa {
         println("\n\n\n")
     }
 
+    /**
+     * Hace un insert - find all - get by id - update - delete a Commit
+     * @author Daniel Rodriguez
+     */
     fun commits(x: String) {
         val commDTO1 = CommitDTO(
                 "comm0003-0000-0000-0000-000000000000", "commit dto 1", null, "11/11/2001",
@@ -183,6 +202,10 @@ object Empresa {
         println("\n\n\n")
     }
 
+    /**
+     * Hace un insert - find all - get by id - update - delete a Issue
+     * @author Daniel Rodriguez
+     */
     fun issues(x: String) {
         val issuDTO1 = IssueDTO(
                 "issu0004-0000-0000-0000-000000000000", manager, "Issue DTO 1",
@@ -208,7 +231,11 @@ object Empresa {
         println("\n\n\n")
     }
 
-    //TODO: CASAR COSAS
+    /**
+     * Hace un insert - find all - get by id - update - delete a Programmer
+     * NO IMPLEMENTADO AÚN
+     * @author Daniel Rodriguez
+     */
     fun programmers(x: String) {
         /*
         println("INSERT Issues:")
@@ -226,7 +253,11 @@ object Empresa {
          */
     }
 
-    //TODO: CASAR COSAS
+    /**
+     * Hace un insert - find all - get by id - update - delete a Repository
+     * NO IMPLEMENTADO AÚN
+     * @author Daniel Rodriguez
+     */
     fun repositories(x: String) {
         /*
         println("INSERT Issues:")
