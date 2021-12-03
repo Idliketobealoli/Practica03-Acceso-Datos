@@ -9,20 +9,20 @@ fun main(args: Array<String>) {
 
     Empresa.checkService()
     Empresa.departments(args[0])
-    //Empresa.departments("xml")
+    //Empresa.departments("json")
 
     Empresa.projects(args[0])
-    //Empresa.projects("xml")
+    //Empresa.projects("json")
 
     Empresa.programmers(args[0])
-    //Empresa.programmers("xml")
+    //Empresa.programmers("json")
 
     Empresa.commits(args[0])
-    //Empresa.commits("xml")
+    //Empresa.commits("json")
 
     Empresa.issues(args[0])
-    //Empresa.issues("xml")
+    //Empresa.issues("json")
 
     Empresa.repositories(args[0])
-    //Empresa.repositories("xml")
+    //Empresa.repositories("json")
  }
