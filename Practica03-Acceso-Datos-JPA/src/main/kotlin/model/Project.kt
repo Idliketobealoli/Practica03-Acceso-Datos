@@ -6,6 +6,10 @@ import javax.persistence.Id
 import javax.persistence.NamedQuery
 import javax.xml.bind.annotation.*
 
+/**
+ * Clase POKO Project cuyos campos irán a la base de datos.
+ * @author Daniel Rodríguez
+ */
 @Entity
 @NamedQuery(name = "Project.finAll", query = "SELECT d FROM Project d")
 @XmlRootElement(name = "project")

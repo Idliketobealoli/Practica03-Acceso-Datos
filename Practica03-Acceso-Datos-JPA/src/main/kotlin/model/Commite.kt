@@ -7,7 +7,8 @@ import javax.xml.bind.annotation.XmlAttribute
 import javax.xml.bind.annotation.XmlRootElement
 
 /**
- * Clase POKO cuyos campos irán a la base de datos.
+ * Clase POKO Commite cuyos campos irán a la base de datos.
+ * @author Jaime Salcedo
  */
 @Entity
 @NamedQuery(name = "Commite.finAll", query = "SELECT d FROM Commite d")
